@@ -1,10 +1,10 @@
 - links:
   - name: Quick Start
-    link: /quick-start
+    link: quick-start
   - name: Examples
-    link: /examples
+    link: examples
   - name: Reference
-    link: /reference
+    link: reference
 - links:
   - name: GitHub
     link: https://github.com/shi/crpm

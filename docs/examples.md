@@ -10,7 +10,7 @@ are meant to be modified to fit your needs.
 
 ### Prerequisites
 
-*   [Install crpm](/quick-start)
+*   [Install crpm](https://shi.github.io/crpm/quick-start)
 *   [Install and configure AWS CLI](https://aws.amazon.com/cli)
 
 ### Steps
