@@ -1,0 +1,10 @@
+- name: Quick Start
+  link: /quick-start
+- name: Examples
+  link: /examples
+- name: Reference
+  link: /reference
+- name: View on GitHub
+  link: https://github.com/shi/crpm
+  new_window: true
+  highlight: true

@@ -1,0 +1,3 @@
+CfnEnvironmentEC2Props:
+  instanceType: t2.micro
+  automaticStopTimeMinutes: 30

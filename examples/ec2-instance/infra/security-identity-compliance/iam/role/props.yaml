@@ -1,0 +1,57 @@
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-assumerolepolicydocument
+# Type: object
+# Required
+assumeRolePolicyDocument:
+  Version: 2012-10-17
+  Statement:
+    - Effect: Allow
+      Principal:
+        Service: ec2.amazonaws.com
+      Action:
+        - sts:AssumeRole
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-managepolicyarns
+# Type: list
+# Optional
+managedPolicyArns:
+  - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-maxsessionduration
+# Type: number
+# Optional
+#maxSessionDuration: 0
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-path
+# Type: string
+# Optional
+#path: ''
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-permissionsboundary
+# Type: string
+# Optional
+#permissionsBoundary: ''
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-policies
+# Type: list
+# Optional
+policies:
+  -
+    # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html#cfn-iam-policies-policydocument
+    # Type: object
+    # Required
+    policyDocument:
+      Version: 2012-10-17
+      Statement:
+        - Action: '*'
+          Effect: Allow
+          Resource: '*'
+
+    # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html#cfn-iam-policies-policyname
+    # Type: string
+    # Required
+    policyName: root
+
+# Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-rolename
+# Type: string
+# Optional
+#roleName: ''

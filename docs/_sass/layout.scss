@@ -1,0 +1,109 @@
+.container, .text-container {
+	margin: 0 auto;
+	position: relative;
+	padding: 0 20px;
+}
+
+.text-container {
+	max-width: 750px;
+}
+
+.container {
+	max-width: 1140px;
+}
+
+header {
+	color: #fff;
+	padding: 20px 0 29px 0;
+	background: $brand-color; /* Old browsers */
+	background: linear-gradient(to bottom, $brand-color 0%, $middle-gradient-color 100%) no-repeat $brand-color;
+
+	a {
+		color: #fff;
+		text-decoration: none;
+		text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+		z-index: 1;
+		position: relative;
+
+		&:hover {
+			text-decoration: none;
+			text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+		}
+	}
+
+	.company-name {
+		font-size: 1.7em;
+		line-height: 0;
+		padding: 9px 0 0 0;
+
+		a {
+			display: inline-block;
+		}
+
+		img {
+			display: block;
+			width: auto;
+		}
+	}
+}
+
+.content {
+	background: #fff;
+	padding: 1px 0 0 0;
+	position: relative;
+}
+
+section {
+	padding: 54px 0 50px 0;
+}
+
+section + section {
+	padding-top: 0;
+}
+
+.subtext {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 1.38em;
+}
+
+.cta {
+	margin: 60px 0;
+}
+
+.page h2 {
+	text-align: center;
+}
+
+blockquote {
+	padding: 18px 25px;
+	margin: 0;
+	quotes: "\201C""\201D""\2018""\2019";
+	font-style: italic;
+
+	.author {
+		display: block;
+		font-weight: bold;
+		margin: 10px 0 0 0;
+		font-size: .85em;
+		font-style: normal;
+	}
+
+	p {
+		display: inline;
+	}
+}
+
+blockquote:before {
+	color: #ccc;
+	content: open-quote;
+	font-size: 4em;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+
+.page {
+	margin-bottom: 0;
+	padding-bottom: 60px;
+}

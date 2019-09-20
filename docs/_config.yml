@@ -1,0 +1,44 @@
+# Site settings
+title: Cloud Resource Property Manager
+description: Resource property management for AWS CloudFormation
+
+# Values for jekyll-seo-tag (https://github.com/jekyll/jekyll-seo-tag)
+logo: /siteicon.png
+author:
+  twitter: SHI_Intl
+social:
+  name: Cloud Resource Property Manager
+  links:
+    - https://github.com/shi/crpm
+    - https://twitter.com/SHI_Intl
+    - https://www.facebook.com/pages/SHI-International-Corp/164409770296612
+    - https://www.linkedin.com/company/shi-international-corp-/
+    - https://www.youtube.com/user/SHICorporation
+
+# Build settings
+timezone: Etc/UTC
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: page
+  -
+    scope:
+      path: index.html
+    values:
+      layout: default
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENCE

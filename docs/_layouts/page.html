@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<div class="content">
+	<section class="page">
+		<div class="container">
+			{% if page.heading %}
+				<h2>{{ page.heading }}</h2>
+			{% elsif page.title %}
+				<h2>{{ page.title }}</h2>
+			{% endif %}
+			{% if page.description %}
+				<p class="subtext">{{ page.description }}</p>
+			{% endif %}
+			{{ content }}
+		</div>
+		{% if content contains "<code>" %}
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+			<script>
+				/*global $*/
+				$("code").each(function(i) {
+				 	var currentId = "code-block-" + (i + 1);
+					$(this).attr('id', currentId);
+				    
+					var clipButton = '<button class="clipboard-button" data-clipboard-target="#' + currentId + '" title="Copy to clipboard"><img class="copy" src="/img/copy.svg" alt="Copy to clipboard"></button>';
+				    $(this).after(clipButton);
+				});
+				
+				/*global ClipboardJS*/
+				new ClipboardJS('.clipboard-button');
+			</script>
+		{% endif %}
+	</section>
+</div>

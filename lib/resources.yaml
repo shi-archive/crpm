@@ -1,0 +1,558 @@
+analytics:
+  athena:
+    named-query: CfnNamedQueryProps
+  data-pipeline:
+    pipeline: CfnPipelineProps
+  elasticsearch:
+    domain: CfnDomainProps
+  emr:
+    cluster: CfnClusterProps
+    instance-fleet-config: CfnInstanceFleetConfigProps
+    instance-group-config: CfnInstanceGroupConfigProps
+    security-configuration: CfnSecurityConfigurationProps
+    step: CfnStepProps
+  glue:
+    classifier: CfnClassifierProps
+    connection: CfnConnectionProps
+    crawler: CfnCrawlerProps
+    data-catalog-encryption-settings: CfnDataCatalogEncryptionSettingsProps
+    database: CfnDatabaseProps
+    dev-endpoint: CfnDevEndpointProps
+    job: CfnJobProps
+    ml-transform: CfnMLTransformProps
+    partition: CfnPartitionProps
+    security-configuration: CfnSecurityConfigurationProps
+    table: CfnTableProps
+    trigger: CfnTriggerProps
+  kinesis:
+    stream: CfnStreamProps
+    stream-consumer: CfnStreamConsumerProps
+  kinesis-analytics:
+    application: CfnApplicationProps
+    application-output: CfnApplicationOutputProps
+    application-reference-data-source: CfnApplicationReferenceDataSourceProps
+  kinesis-analytics-v2:
+    application: CfnApplicationV2Props
+    application-cloudwatch-logging-option: CfnApplicationCloudWatchLoggingOptionV2Props
+    application-output: CfnApplicationOutputV2Props
+    application-reference-data-source: CfnApplicationReferenceDataSourceV2Props
+  kinesis-firehose:
+    delivery-stream: CfnDeliveryStreamProps
+  msk:
+    cluster: CfnClusterProps
+application-integration:
+  amazon-mq: 
+    broker: CfnBrokerProps
+    configuration: CfnConfigurationProps
+    configuration-association: CfnConfigurationAssociationProps
+  sns:
+    subscription: CfnSubscriptionProps
+    topic: CfnTopicProps
+    topic-policy: CfnTopicPolicyProps
+  sqs:
+    queue: CfnQueueProps
+    queue-policy: CfnQueuePolicyProps
+  step-functions:
+    activity: CfnActivityProps
+    state-machine: CfnStateMachineProps
+compute:
+  batch: 
+    compute-environment: CfnComputeEnvironmentProps
+    job-definition: CfnJobDefinitionProps
+    job-queue: CfnJobQueueProps
+  dlm: 
+    lifecycle-policy: CfnLifecyclePolicyProps
+  ec2:
+    client-vpn-authorization-rule: CfnClientVpnAuthorizationRuleProps
+    client-vpn-endpoint: CfnClientVpnEndpointProps
+    client-vpn-route: CfnClientVpnRouteProps
+    client-vpn-target-network-association: CfnClientVpnTargetNetworkAssociationProps
+    capacity-reservation: CfnCapacityReservationProps
+    customer-gateway: CfnCustomerGatewayProps
+    dhcp-options: CfnDHCPOptionsProps
+    ec2-fleet: CfnEC2FleetProps
+    egress-only-internet-gateway: CfnEgressOnlyInternetGatewayProps
+    eip: CfnEIPProps
+    eip-association: CfnEIPAssociationProps
+    flow-log: CfnFlowLogProps
+    host: CfnHostProps
+    instance: CfnInstanceProps
+    internet-gateway: CfnInternetGatewayProps
+    launch-template: CfnLaunchTemplateProps
+    nat-gateway: CfnNatGatewayProps
+    network-acl: CfnNetworkAclProps
+    network-acl-entry: CfnNetworkAclEntryProps
+    network-interface: CfnNetworkInterfaceProps
+    network-interface-attachment: CfnNetworkInterfaceAttachmentProps
+    network-interface-permission: CfnNetworkInterfacePermissionProps
+    placement-group: CfnPlacementGroupProps
+    route: CfnRouteProps
+    route-table: CfnRouteTableProps
+    security-group: CfnSecurityGroupProps
+    security-group-egress: CfnSecurityGroupEgressProps
+    security-group-ingress: CfnSecurityGroupIngressProps
+    spot-fleet: CfnSpotFleetProps
+    subnet: CfnSubnetProps
+    subnet-cidr-block: CfnSubnetCidrBlockProps
+    subnet-network-acl-association: CfnSubnetNetworkAclAssociationProps
+    subnet-route-table-association: CfnSubnetRouteTableAssociationProps
+    transit-gateway: CfnTransitGatewayProps
+    transit-gateway-attachment: CfnTransitGatewayAttachmentProps
+    transit-gateway-route: CfnTransitGatewayRouteProps
+    transit-gateway-route-table: CfnTransitGatewayRouteTableProps
+    transit-gateway-route-table-association: CfnTransitGatewayRouteTableAssociationProps
+    transit-gateway-route-table-propagation: CfnTransitGatewayRouteTablePropagationProps
+    volume: CfnVolumeProps
+    volume-attachment: CfnVolumeAttachmentProps
+    vpc: CfnVPCProps
+    vpc-cidr-block: CfnVPCCidrBlockProps
+    vpc-dhcp-options-association: CfnVPCDHCPOptionsAssociationProps
+    vpc-endpoint: CfnVPCEndpointProps
+    vpc-endpoint-connection-notification: CfnVPCEndpointConnectionNotificationProps
+    vpc-endpoint-service: CfnVPCEndpointServiceProps
+    vpc-endpoint-service-permissions: CfnVPCEndpointServicePermissionsProps
+    vpc-gateway-attachment: CfnVPCGatewayAttachmentProps
+    vpc-peering-connection: CfnVPCPeeringConnectionProps
+    vpn-connection: CfnVPNConnectionProps
+    vpn-connection-route: CfnVPNConnectionRouteProps
+    vpn-gateway: CfnVPNGatewayProps
+    vpn-gateway-route-propagation: CfnVPNGatewayRoutePropagationProps
+  ecr:
+    repository: CfnRepositoryProps
+  ecs:
+    cluster: CfnClusterProps
+    service: CfnServiceProps
+    task-definition: CfnTaskDefinitionProps
+  eks:
+    cluster: CfnClusterProps
+  elastic-beanstalk:
+    application: CfnApplicationProps
+    application-version: CfnApplicationVersionProps
+    configuration-template: CfnConfigurationTemplateProps
+    environment: CfnEnvironmentProps
+  elastic-load-balancing:
+    load-balancer: CfnLoadBalancerProps
+  elastic-load-balancing-v2:
+    listener: CfnListenerProps
+    listener-certificate: CfnListenerCertificateProps
+    listener-rule: CfnListenerRuleProps
+    load-balancer: CfnLoadBalancerProps
+    target-group: CfnTargetGroupProps
+  lambda:
+    alias: CfnAliasProps
+    event-source-mapping: CfnEventSourceMappingProps
+    function: CfnFunctionProps
+    layer-version: CfnLayerVersionProps
+    layer-version-permission: CfnLayerVersionPermissionProps
+    permission: CfnPermissionProps
+    version: CfnVersionProps
+  sam:
+    api: CfnApiProps
+    application: CfnApplicationProps
+    function: CfnFunctionProps
+    layer-version: CfnLayerVersionProps
+    simple-table: CfnSimpleTableProps
+cost-management:
+  budgets: 
+    budget: CfnBudgetProps
+customer-engagement:
+  pinpoint:
+    adm-channel: CfnADMChannelProps
+    apns-channel: CfnAPNSChannelProps
+    apns-sandbox-channel: CfnAPNSSandboxChannelProps
+    apns-voip-channel: CfnAPNSVoipChannelProps
+    apns-voip-sandbox-channel: CfnAPNSVoipSandboxChannelProps
+    app: CfnAppProps
+    application-settings: CfnApplicationSettingsProps
+    baidu-channel: CfnBaiduChannelProps
+    campaign: CfnCampaignProps
+    email-channel: CfnEmailChannelProps
+    event-stream: CfnEventStreamProps
+    gcm-channel: CfnGCMChannelProps
+    sms-channel: CfnSMSChannelProps
+    segment: CfnSegmentProps
+    voice-channel: CfnVoiceChannelProps
+  pinpoint-email:
+    configuration-set: CfnConfigurationSetProps
+    configuration-set-event-destination: CfnConfigurationSetEventDestinationProps
+    dedicated-ip-pool: CfnDedicatedIpPoolProps
+    identity: CfnIdentityProps
+  ses:
+    configuration-set: CfnConfigurationSetProps
+    configuration-set-event-destination: CfnConfigurationSetEventDestinationProps
+    receipt-filter: CfnReceiptFilterProps
+    receipt-rule: CfnReceiptRuleProps
+    receipt-rule-set: CfnReceiptRuleSetProps
+    template: CfnTemplateProps
+db:
+  dax:
+    cluster: CfnClusterProps
+    parameter-group: CfnParameterGroupProps
+    subnet-group: CfnSubnetGroupProps
+  docdb:
+    db-cluster: CfnDBClusterProps
+    db-cluster-parameter-group: CfnDBClusterParameterGroupProps
+    db-instance: CfnDBInstanceProps
+    db-subnet-group: CfnDBSubnetGroupProps
+  dynamodb:
+    table: CfnTableProps
+  elasticache:
+    cache-cluster: CfnCacheClusterProps
+    parameter-group: CfnParameterGroupProps
+    replication-group: CfnReplicationGroupProps
+    security-group: CfnSecurityGroupProps
+    security-group-ingress: CfnSecurityGroupIngressProps
+    subnet-group: CfnSubnetGroupProps
+  neptune:
+    db-cluster: CfnDBClusterProps
+    db-cluster-parameter-group: CfnDBClusterParameterGroupProps
+    db-instance: CfnDBInstanceProps
+    db-parameter-group: CfnDBParameterGroupProps
+    db-subnet-group: CfnDBSubnetGroupProps
+  redshift:
+    cluster: CfnClusterProps
+    cluster-parameter-group: CfnClusterParameterGroupProps
+    cluster-security-group: CfnClusterSecurityGroupProps
+    cluster-security-group-ingress: CfnClusterSecurityGroupIngressProps
+    cluster-subnet-group: CfnClusterSubnetGroupProps
+  rds:
+    db-cluster: CfnDBClusterProps
+    db-cluster-parameter-group: CfnDBClusterParameterGroupProps
+    db-instance: CfnDBInstanceProps
+    db-parameter-group: CfnDBParameterGroupProps
+    db-security-group: CfnDBSecurityGroupProps
+    db-security-group-ingress: CfnDBSecurityGroupIngressProps
+    db-subnet-group: CfnDBSubnetGroupProps
+    event-subscription: CfnEventSubscriptionProps
+    option-group: CfnOptionGroupProps
+  sdb:
+    domain: CfnDomainProps
+developer-tools:
+  cloud9:
+    environment-ec2: CfnEnvironmentEC2Props
+  codebuild:
+    project: CfnProjectProps
+    source-credential: CfnSourceCredentialProps
+  codecommit:
+    repository: CfnRepositoryProps
+  codedeploy:
+    application: CfnApplicationProps
+    deployment-config: CfnDeploymentConfigProps
+    deployment-group: CfnDeploymentGroupProps
+  codepipeline:
+    custom-action-type: CfnCustomActionTypeProps
+    pipeline: CfnPipelineProps
+    webhook: CfnWebhookProps
+end-user-computing:
+  appstream:
+    directory-config: CfnDirectoryConfigProps
+    fleet: CfnFleetProps
+    image-builder: CfnImageBuilderProps
+    stack: CfnStackProps
+    stack-fleet-association: CfnStackFleetAssociationProps
+    stack-user-association: CfnStackUserAssociationProps
+    user: CfnUserProps
+  workspaces:
+    workspace: CfnWorkspaceProps
+game-development:
+  gamelift:
+    alias: CfnAliasProps
+    build: CfnBuildProps
+    fleet: CfnFleetProps
+iot:
+  greengrass:
+    connector-definition: CfnConnectorDefinitionProps
+    connector-definition-version: CfnConnectorDefinitionVersionProps
+    core-definition: CfnCoreDefinitionProps
+    core-definition-version: CfnCoreDefinitionVersionProps
+    device-definition: CfnDeviceDefinitionProps
+    device-definition-version: CfnDeviceDefinitionVersionProps
+    function-definition: CfnFunctionDefinitionProps
+    function-definition-version: CfnFunctionDefinitionVersionProps
+    group: CfnGroupProps
+    group-version: CfnGroupVersionProps
+    logger-definition: CfnLoggerDefinitionProps
+    logger-definition-version: CfnLoggerDefinitionVersionProps
+    resource-definition: CfnResourceDefinitionProps
+    resource-definition-version: CfnResourceDefinitionVersionProps
+    subscription-definition: CfnSubscriptionDefinitionProps
+    subscription-definition-version: CfnSubscriptionDefinitionVersionProps
+  iot:
+    certificate: CfnCertificateProps
+    policy: CfnPolicyProps
+    policy-principal-attachment: CfnPolicyPrincipalAttachmentProps
+    thing: CfnThingProps
+    thing-principal-attachment: CfnThingPrincipalAttachmentProps
+    topic-rule: CfnTopicRuleProps
+  iot-1-click:
+    device: CfnDeviceProps
+    placement: CfnPlacementProps
+    project: CfnProjectProps
+  iot-analytics:
+    channel: CfnChannelProps
+    dataset: CfnDatasetProps
+    datastore: CfnDatastoreProps
+    pipeline: CfnPipelineProps
+  iot-events:
+    detector-model: CfnDetectorModelProps
+    input: CfnInputProps
+  iot-things-graph:
+    flow-template: CfnFlowTemplateProps
+management-governance:
+  application-auto-scaling: 
+    scalable-target: CfnScalableTargetProps
+    scaling-policy: CfnScalingPolicyProps
+  auto-scaling:
+    auto-scaling-group: CfnAutoScalingGroupProps
+    launch-configuration: CfnLaunchConfigurationProps
+    lifecycle-hook: CfnLifecycleHookProps
+    scaling-policy: CfnScalingPolicyProps
+    scheduled-action: CfnScheduledActionProps
+  auto-scaling-plans:
+    scaling-plan: CfnScalingPlanProps
+  cloudformation:
+    custom-resource: CfnCustomResourceProps
+    macro: CfnMacroProps
+    stack: CfnStackProps
+    wait-condition: CfnWaitConditionProps
+  cloudtrail:
+    trail: CfnTrailProps
+  cloudwatch:
+    alarm: CfnAlarmProps
+    anomaly-detector: CfnAnomalyDetectorProps
+    dashboard: CfnDashboardProps
+  config:
+    aggregation-authorization: CfnAggregationAuthorizationProps
+    config-rule: CfnConfigRuleProps
+    configuration-aggregator: CfnConfigurationAggregatorProps
+    configuration-recorder: CfnConfigurationRecorderProps
+    delivery-channel: CfnDeliveryChannelProps
+    organization-config-rule: CfnOrganizationConfigRuleProps
+    remediation-configuration: CfnRemediationConfigurationProps
+  events:
+    event-bus-policy: CfnEventBusPolicyProps
+    rule: CfnRuleProps
+  logs:
+    destination: CfnDestinationProps
+    log-group: CfnLogGroupProps
+    log-stream: CfnLogStreamProps
+    metric-filter: CfnMetricFilterProps
+    subscription-filter: CfnSubscriptionFilterProps
+  opsworks:
+    app: CfnAppProps
+    elastic-load-balancer-attachment: CfnElasticLoadBalancerAttachmentProps
+    instance: CfnInstanceProps
+    layer: CfnLayerProps
+    stack: CfnStackProps
+    user-profile: CfnUserProfileProps
+    volume: CfnVolumeProps
+  opsworks-cm:
+    server: CfnServerProps
+  service-catalog:
+    accepted-portfolio-share: CfnAcceptedPortfolioShareProps
+    cloudformation-product: CfnCloudFormationProductProps
+    cloudformation-provisioned-product: CfnCloudFormationProvisionedProductProps
+    launch-notification-constraint: CfnLaunchNotificationConstraintProps
+    launch-role-constraint: CfnLaunchRoleConstraintProps
+    launch-template-constraint: CfnLaunchTemplateConstraintProps
+    portfolio: CfnPortfolioProps
+    portfolio-principal-association: CfnPortfolioPrincipalAssociationProps
+    portfolio-product-association: CfnPortfolioProductAssociationProps
+    portfolio-share: CfnPortfolioShareProps
+    resource-update-constraint: CfnResourceUpdateConstraintProps
+    stack-set-constraint: CfnStackSetConstraintProps
+    tag-option: CfnTagOptionProps
+    tag-option-association: CfnTagOptionAssociationProps
+  ssm:
+    association: CfnAssociationProps
+    document: CfnDocumentProps
+    maintenance-window: CfnMaintenanceWindowProps
+    maintenance-window-target: CfnMaintenanceWindowTargetProps
+    maintenance-window-task: CfnMaintenanceWindowTaskProps
+    parameter: CfnParameterProps
+    patch-baseline: CfnPatchBaselineProps
+    resource-data-sync: CfnResourceDataSyncProps
+media-services:
+  media-live:
+    channel: CfnChannelProps
+    input: CfnInputProps
+    input-security-group: CfnInputSecurityGroupProps
+  media-store:
+    container: CfnContainerProps
+migration-transfer:
+  dms:
+    certificate: CfnCertificateProps
+    endpoint: CfnEndpointProps
+    event-subscription: CfnEventSubscriptionProps
+    replication-instance: CfnReplicationInstanceProps
+    replication-subnet-group: CfnReplicationSubnetGroupProps
+    replication-task: CfnReplicationTaskProps
+  transfer:
+    server: CfnServerProps
+    user: CfnUserProps
+ml:
+  sagemaker:
+    endpoint: CfnEndpointProps
+    endpoint-config: CfnEndpointConfigProps
+    model: CfnModelProps
+    notebook-instance: CfnNotebookInstanceProps
+    notebook-instance-lifecycle-config: CfnNotebookInstanceLifecycleConfigProps
+    workteam-props: CfnWorkteamProps
+mobile:
+  amplify:
+    app: CfnAppProps
+    branch: CfnBranchProps
+    domain: CfnDomainProps
+  appsync:
+    api-key: CfnApiKeyProps
+    data-source: CfnDataSourceProps
+    function-configuration: CfnFunctionConfigurationProps
+    graphql-api: CfnGraphQLApiProps
+    graphql-schema: CfnGraphQLSchemaProps
+    resolver: CfnResolverProps
+networking-content-delivery:
+  api-gateway:
+    account: CfnAccountProps
+    api-key: CfnApiKeyProps
+    authorizer: CfnAuthorizerProps
+    base-path-mapping: CfnBasePathMappingProps
+    client-certificate: CfnClientCertificateProps
+    deployment: CfnDeploymentProps
+    documentation-part: CfnDocumentationPartProps
+    documentation-version: CfnDocumentationVersionProps
+    domain-name: CfnDomainNameProps
+    gateway-response: CfnGatewayResponseProps
+    method: CfnMethodProps
+    model: CfnModelProps
+    request-validator: CfnRequestValidatorProps
+    resource: CfnResourceProps
+    rest-api: CfnRestApiProps
+    stage: CfnStageProps
+    usage-plan: CfnUsagePlanProps
+    usage-plan-key: CfnUsagePlanKeyProps
+    vpc-link: CfnVpcLinkProps
+  api-gateway-v2:
+    api: CfnApiV2Props
+    api-mapping: CfnApiMappingV2Props
+    authorizer: CfnAuthorizerV2Props
+    deployment: CfnDeploymentV2Props
+    domain-name: CfnDomainNameV2Props
+    integration: CfnIntegrationV2Props
+    integration-response: CfnIntegrationResponseV2Props
+    model: CfnModelV2Props
+    route: CfnRouteV2Props
+    route-response: CfnRouteResponseV2Props
+    stage: CfnStageV2Props
+  app-mesh:
+    mesh: CfnMeshProps
+    route: CfnRouteProps
+    virtual-node: CfnVirtualNodeProps
+    virtual-router: CfnVirtualRouterProps
+    virtual-service: CfnVirtualServiceProps
+  cloudfront:
+    cloudfront-origin-access-identity: CfnCloudFrontOriginAccessIdentityProps
+    distribution: CfnDistributionProps
+    streaming-distribution: CfnStreamingDistributionProps
+  route-53:
+    health-check: CfnHealthCheckProps
+    hosted-zone: CfnHostedZoneProps
+    record-set: CfnRecordSetProps
+    record-set-group: CfnRecordSetGroupProps
+  route-53-resolver:
+    resolver-endpoint: CfnResolverEndpointProps
+    resolver-rule: CfnResolverRuleProps
+    resolver-rule-association: CfnResolverRuleAssociationProps
+  service-discovery:
+    http-namespace: CfnHttpNamespaceProps
+    instance: CfnInstanceProps
+    private-dns-namespace: CfnPrivateDnsNamespaceProps
+    public-dns-namespace: CfnPublicDnsNamespaceProps
+    service: CfnServiceProps
+robotics:
+  robomaker:
+    fleet: CfnFleetProps
+    robot: CfnRobotProps
+    robot-application: CfnRobotApplicationProps
+    robot-application-version: CfnRobotApplicationVersionProps
+    simulation-application: CfnSimulationApplicationProps
+    simulation-application-version: CfnSimulationApplicationVersionProps
+security-identity-compliance:
+  certificate-manager: 
+    certificate: CfnCertificateProps
+  cognito:
+    identity-pool: CfnIdentityPoolProps
+    identity-pool-role-attachment: CfnIdentityPoolRoleAttachmentProps
+    user-pool: CfnUserPoolProps
+    user-pool-client: CfnUserPoolClientProps
+    user-pool-group: CfnUserPoolGroupProps
+    user-pool-user: CfnUserPoolUserProps
+    user-pool-user-to-group-attachment: CfnUserPoolUserToGroupAttachmentProps
+  directory-service:
+    microsoft-ad: CfnMicrosoftADProps
+    simple-ad: CfnSimpleADProps
+  guardduty:
+    detector: CfnDetectorProps
+    filter: CfnFilterProps
+    ip-set: CfnIPSetProps
+    master: CfnMasterProps
+    member: CfnMemberProps
+    threat-intel-set: CfnThreatIntelSetProps
+  iam:
+    access-key: CfnAccessKeyProps
+    group: CfnGroupProps
+    instance-profile: CfnInstanceProfileProps
+    managed-policy: CfnManagedPolicyProps
+    policy: CfnPolicyProps
+    role: CfnRoleProps
+    service-linked-role: CfnServiceLinkedRoleProps
+    user: CfnUserProps
+    user-to-group-addition: CfnUserToGroupAdditionProps
+  inspector:
+    assessment-target: CfnAssessmentTargetProps
+    assessment-template: CfnAssessmentTemplateProps
+    resource-group: CfnResourceGroupProps
+  kms:
+    alias: CfnAliasProps
+    key: CfnKeyProps
+  ram:
+    resource-share: CfnResourceShareProps
+  secrets-manager:
+    resource-policy: CfnResourcePolicyProps
+    rotation-schedule: CfnRotationScheduleProps
+    secret: CfnSecretProps
+    secret-target-attachment: CfnSecretTargetAttachmentProps
+  security-hub:
+    hub: CfnHubProps
+  waf:
+    byte-match-set: CfnByteMatchSetProps
+    ip-set: CfnIPSetProps
+    rule: CfnRuleProps
+    size-constraint-set: CfnSizeConstraintSetProps
+    sql-injection-match-set: CfnSqlInjectionMatchSetProps
+    web-acl: CfnWebACLProps
+    xss-match-set: CfnXssMatchSetProps
+  waf-regional:
+    byte-match-set: CfnByteMatchSetProps
+    geo-match-set: CfnGeoMatchSetProps
+    ip-set: CfnIPSetProps
+    rate-based-rule: CfnRateBasedRuleProps
+    regex-pattern-set: CfnRegexPatternSetProps
+    rule: CfnRuleProps
+    size-constraint-set: CfnSizeConstraintSetProps
+    sql-injection-match-set: CfnSqlInjectionMatchSetProps
+    web-acl: CfnWebACLProps
+    web-acl-association: CfnWebACLAssociationProps
+    xss-match-set: CfnXssMatchSetProps
+storage:
+  backup:
+    backup-plan: CfnBackupPlanProps
+    backup-selection: CfnBackupSelectionProps
+    backup-vault: CfnBackupVaultProps
+  efs:
+    file-system: CfnFileSystemProps
+    mount-target: CfnMountTargetProps
+  fsx:
+    file-system: CfnFileSystemProps
+  s3:
+    bucket: CfnBucketProps
+    bucket-policy: CfnBucketPolicyProps

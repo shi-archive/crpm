@@ -1,0 +1,23 @@
+extends:
+  - "tslint:recommended"
+  - "tslint-config-prettier"
+rulesDirectory: "tslint-plugin-prettier"
+rules:
+  prettier: true
+  no-invalid-template-strings: false
+  interface-name: false
+  max-classes-per-file: false
+  member-access:
+    severity: warning
+  interface-over-type-literal: false
+  eofline: false
+  no-namespace: false
+  object-literal-sort-keys: false
+  no-unused-expression: [true, "allow-new"]
+  variable-name: [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
+  no-shadowed-variable: false
+  no-conditional-assignment: false
+  no-console: false
+linterOptions:
+  exclude:
+    - "**/*.d.ts"

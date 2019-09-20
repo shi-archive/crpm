@@ -1,0 +1,29 @@
+{
+  "exclude": [
+    ".test",
+    "test"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "reporter": "lcov",
+  "report-dir": ".coverage",
+  "watermarks": {
+    "statements": [
+      50,
+      75
+    ],
+    "branches": [
+      50,
+      75
+    ],
+    "functions": [
+      50,
+      75
+    ],
+    "lines": [
+      50,
+      75
+    ]
+  }
+}

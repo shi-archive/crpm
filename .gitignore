@@ -1,0 +1,7 @@
+*.d.ts
+*.js
+.coverage
+.nyc_output
+.test
+node_modules
+.agreed

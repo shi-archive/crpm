@@ -1,0 +1,32 @@
+- links:
+  - name: Quick Start
+    link: /quick-start
+  - name: Examples
+    link: /examples
+  - name: Reference
+    link: /reference
+- links:
+  - name: GitHub
+    link: https://github.com/shi/crpm
+    new_window: true
+    social_icon: GitHub
+  - name: YouTube
+    link: https://www.youtube.com/user/SHICorporation
+    social_icon: YouTube
+    new_window: true
+  - name: LinkedIn
+    link: https://www.linkedin.com/company/shi-international-corp-/
+    new_window: true
+    social_icon: LinkedIn
+- links:
+  - name: Facebook
+    link: https://www.facebook.com/pages/SHI-International-Corp/164409770296612
+    new_window: true
+    social_icon: Facebook
+  - name: Twitter
+    link: https://twitter.com/SHI_Intl
+    social_icon: Twitter
+    new_window: true
+  - name: RSS
+    link: https://blog.shi.com/feed
+    social_icon: RSS
