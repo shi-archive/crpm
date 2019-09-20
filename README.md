@@ -2,9 +2,9 @@
 
 ## Getting Started
 
-* [Quick Start](https://shi.github.io/crpm/quick-start.md)
-* [Examples](https://shi.github.io/crpm/examples.md)
-* [Reference](https://shi.github.io/crpm/reference.md)
+* [Quick Start](https://shi.github.io/crpm/quick-start)
+* [Examples](https://shi.github.io/crpm/examples)
+* [Reference](https://shi.github.io/crpm/reference)
 
 ## Useful Commands
 
