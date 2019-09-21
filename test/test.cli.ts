@@ -39,7 +39,8 @@ describe('crpm CLI', () => {
     expect(stdout).to.contain('.test/.gitignore');
     expect(stdout).to.contain('.test/tsconfig.json');
     expect(stdout).to.contain('.test/package.json');
-    expect(stdout).to.contain('+ @aws-cdk/aws-ec2@');
+    expect(stdout).to.contain('+ aws-cdk@');
+    expect(stdout).to.contain('+ crpm@');
     expect(stdout).to.contain('.test/compute/ec2/instance/template.ts');
     expect(stdout).to.contain('.test/compute/ec2/instance/props.yaml');
     expect(stdout).not.to.contain('(0 bytes)');
@@ -47,7 +48,8 @@ describe('crpm CLI', () => {
   });
 
   it('cd .test; npm i', () => {
-    const result = spawnSync('npm', ['i', '-s'], { cwd: '.test' });
+    // Swap out crpm from npmjs.com with the local version when running install
+    const result = spawnSync('npm', ['i', '..', '-s'], { cwd: '.test' });
     const stderr = result.output[2].toString();
     expect(stderr).to.equal('');
   });
