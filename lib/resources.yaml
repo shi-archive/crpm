@@ -24,6 +24,7 @@ analytics:
     security-configuration: CfnSecurityConfigurationProps
     table: CfnTableProps
     trigger: CfnTriggerProps
+    workflow: CfnWorkflowProps
   kinesis:
     stream: CfnStreamProps
     stream-consumer: CfnStreamConsumerProps
@@ -96,6 +97,10 @@ compute:
     subnet-cidr-block: CfnSubnetCidrBlockProps
     subnet-network-acl-association: CfnSubnetNetworkAclAssociationProps
     subnet-route-table-association: CfnSubnetRouteTableAssociationProps
+    traffic-mirror-filter: CfnTrafficMirrorFilterProps
+    traffic-mirror-filter-rule: CfnTrafficMirrorFilterRuleProps
+    traffic-mirror-session: CfnTrafficMirrorSessionProps
+    traffic-mirror-target: CfnTrafficMirrorTargetProps
     transit-gateway: CfnTransitGatewayProps
     transit-gateway-attachment: CfnTransitGatewayAttachmentProps
     transit-gateway-route: CfnTransitGatewayRouteProps
@@ -330,6 +335,7 @@ management-governance:
     organization-config-rule: CfnOrganizationConfigRuleProps
     remediation-configuration: CfnRemediationConfigurationProps
   events:
+    event-bus: CfnEventBusProps
     event-bus-policy: CfnEventBusPolicyProps
     rule: CfnRuleProps
   logs:
@@ -392,6 +398,7 @@ migration-transfer:
     user: CfnUserProps
 ml:
   sagemaker:
+    code-repository: CfnCodeRepositoryProps
     endpoint: CfnEndpointProps
     endpoint-config: CfnEndpointConfigProps
     model: CfnModelProps
@@ -484,7 +491,12 @@ security-identity-compliance:
     identity-pool-role-attachment: CfnIdentityPoolRoleAttachmentProps
     user-pool: CfnUserPoolProps
     user-pool-client: CfnUserPoolClientProps
+    user-pool-domain: CfnUserPoolDomainProps
     user-pool-group: CfnUserPoolGroupProps
+    user-pool-identity-provider: CfnUserPoolIdentityProviderProps
+    user-pool-resource-server: CfnUserPoolResourceServerProps
+    user-pool-risk-configuration-attachment: CfnUserPoolRiskConfigurationAttachmentProps
+    user-pool-ui-customization-attachment: CfnUserPoolUICustomizationAttachmentProps
     user-pool-user: CfnUserPoolUserProps
     user-pool-user-to-group-attachment: CfnUserPoolUserToGroupAttachmentProps
   directory-service:
