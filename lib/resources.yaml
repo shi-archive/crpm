@@ -172,9 +172,12 @@ customer-engagement:
     baidu-channel: CfnBaiduChannelProps
     campaign: CfnCampaignProps
     email-channel: CfnEmailChannelProps
+    email-template: CfnEmailTemplateProps
     event-stream: CfnEventStreamProps
     gcm-channel: CfnGCMChannelProps
+    push-template: CfnPushTemplateProps
     sms-channel: CfnSMSChannelProps
+    sms-template: CfnSmsTemplateProps
     segment: CfnSegmentProps
     voice-channel: CfnVoiceChannelProps
   pinpoint-email:
