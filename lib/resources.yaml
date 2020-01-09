@@ -39,13 +39,21 @@ analytics:
     application-reference-data-source: CfnApplicationReferenceDataSourceV2Props
   kinesis-firehose:
     delivery-stream: CfnDeliveryStreamProps
+  lake-formation:
+    data-lake-settings: CfnDataLakeSettingsProps
+    permission: CfnPermissionsProps
+    resource: CfnResourceProps
   msk:
     cluster: CfnClusterProps
 application-integration:
-  amazon-mq: 
+  amazon-mq:
     broker: CfnBrokerProps
     configuration: CfnConfigurationProps
     configuration-association: CfnConfigurationAssociationProps
+  event-schemas:
+    discoverer: CfnDiscovererProps
+    registry: CfnRegistryProps
+    schema: CfnSchemaProps
   sns:
     subscription: CfnSubscriptionProps
     topic: CfnTopicProps
@@ -56,6 +64,10 @@ application-integration:
   step-functions:
     activity: CfnActivityProps
     state-machine: CfnStateMachineProps
+blockchain:
+  managed-blockchain:
+    member: CfnMemberProps
+    node: CfnNodeProps
 compute:
   batch: 
     compute-environment: CfnComputeEnvironmentProps
@@ -76,6 +88,7 @@ compute:
     eip: CfnEIPProps
     eip-association: CfnEIPAssociationProps
     flow-log: CfnFlowLogProps
+    gateway-route-table-association: CfnGatewayRouteTableAssociationProps
     host: CfnHostProps
     instance: CfnInstanceProps
     internet-gateway: CfnInternetGatewayProps
@@ -126,10 +139,13 @@ compute:
     repository: CfnRepositoryProps
   ecs:
     cluster: CfnClusterProps
+    primary-task-set: CfnPrimaryTaskSetProps
     service: CfnServiceProps
     task-definition: CfnTaskDefinitionProps
+    task-set: CfnTaskSetProps
   eks:
     cluster: CfnClusterProps
+    nodegroup: CfnNodegroupProps
   elastic-beanstalk:
     application: CfnApplicationProps
     application-version: CfnApplicationVersionProps
@@ -145,6 +161,7 @@ compute:
     target-group: CfnTargetGroupProps
   lambda:
     alias: CfnAliasProps
+    event-invoke-config: CfnEventInvokeConfigProps
     event-source-mapping: CfnEventSourceMappingProps
     function: CfnFunctionProps
     layer-version: CfnLayerVersionProps
@@ -217,6 +234,8 @@ db:
     db-instance: CfnDBInstanceProps
     db-parameter-group: CfnDBParameterGroupProps
     db-subnet-group: CfnDBSubnetGroupProps
+  qldb:
+    ledger: CfnLedgerProps
   redshift:
     cluster: CfnClusterProps
     cluster-parameter-group: CfnClusterParameterGroupProps
@@ -240,6 +259,7 @@ developer-tools:
     environment-ec2: CfnEnvironmentEC2Props
   codebuild:
     project: CfnProjectProps
+    report-group: CfnReportGroupProps
     source-credential: CfnSourceCredentialProps
   codecommit:
     repository: CfnRepositoryProps
@@ -251,6 +271,10 @@ developer-tools:
     custom-action-type: CfnCustomActionTypeProps
     pipeline: CfnPipelineProps
     webhook: CfnWebhookProps
+  codestar:
+    github-repository: CfnGitHubRepositoryProps
+  codestar-notifications:
+    notification-rule: CfnNotificationRuleProps
 end-user-computing:
   appstream:
     directory-config: CfnDirectoryConfigProps
@@ -267,6 +291,10 @@ game-development:
     alias: CfnAliasProps
     build: CfnBuildProps
     fleet: CfnFleetProps
+    game-session-queue: CfnGameSessionQueueProps
+    matchmaking-configuration: CfnMatchmakingConfigurationProps
+    matchmaking-rule-set: CfnMatchmakingRuleSetProps
+    script: CfnScriptProps
 iot:
   greengrass:
     connector-definition: CfnConnectorDefinitionProps
@@ -329,6 +357,7 @@ management-governance:
     alarm: CfnAlarmProps
     anomaly-detector: CfnAnomalyDetectorProps
     dashboard: CfnDashboardProps
+    insight-rule: CfnInsightRuleProps
   config:
     aggregation-authorization: CfnAggregationAuthorizationProps
     config-rule: CfnConfigRuleProps
@@ -382,6 +411,10 @@ management-governance:
     patch-baseline: CfnPatchBaselineProps
     resource-data-sync: CfnResourceDataSyncProps
 media-services:
+  media-convert:
+    job-template: CfnJobTemplateProps
+    preset: CfnPresetProps
+    queue: CfnQueueProps
   media-live:
     channel: CfnChannelProps
     input: CfnInputProps
@@ -414,6 +447,7 @@ mobile:
     branch: CfnBranchProps
     domain: CfnDomainProps
   appsync:
+    api-cache: CfnApiCacheProps
     api-key: CfnApiKeyProps
     data-source: CfnDataSourceProps
     function-configuration: CfnFunctionConfigurationProps
@@ -487,6 +521,8 @@ robotics:
     simulation-application: CfnSimulationApplicationProps
     simulation-application-version: CfnSimulationApplicationVersionProps
 security-identity-compliance:
+  access-analyzer:
+    analyzer: CfnAnalyzerProps
   certificate-manager: 
     certificate: CfnCertificateProps
   cognito:
@@ -546,6 +582,11 @@ security-identity-compliance:
     sql-injection-match-set: CfnSqlInjectionMatchSetProps
     web-acl: CfnWebACLProps
     xss-match-set: CfnXssMatchSetProps
+  wafv2:
+    ip-set: CfnIPSetProps
+    regex-pattern-set: CfnRegexPatternSetProps
+    rule-group: CfnRuleGroupProps
+    web-acl: CfnWebACLProps
   waf-regional:
     byte-match-set: CfnByteMatchSetProps
     geo-match-set: CfnGeoMatchSetProps
@@ -569,5 +610,6 @@ storage:
   fsx:
     file-system: CfnFileSystemProps
   s3:
+    access-point: CfnAccessPointProps
     bucket: CfnBucketProps
     bucket-policy: CfnBucketPolicyProps
