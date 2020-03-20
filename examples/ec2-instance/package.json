@@ -3,19 +3,19 @@
   "scripts": {
     "build": "tsc",
     "buildw": "tsc -w",
-    "update-packages": "ncu -u"
+    "update-dependencies": "ncu -u"
   },
   "devDependencies": {
-    "@types/node": "^13.9.2",
-    "npm-check-updates": "^4.0.4",
-    "typescript": "^3.8.3"
+    "@types/node": "~13.9.2",
+    "npm-check-updates": "~4.0.4",
+    "typescript": "~3.8.3"
   },
   "dependencies": {
-    "@aws-cdk/aws-ec2": "^1.30.0",
-    "@aws-cdk/aws-s3": "^1.30.0",
-    "@aws-cdk/core": "^1.30.0",
-    "aws-cdk": "^1.30.0",
-    "crpm": "^1.5.0",
-    "dotenv": "^8.2.0"
+    "@aws-cdk/aws-ec2": "~1.30.0",
+    "@aws-cdk/aws-s3": "~1.30.0",
+    "@aws-cdk/core": "~1.30.0",
+    "aws-cdk": "~1.30.0",
+    "crpm": "~1.5.0",
+    "dotenv": "~8.2.0"
   }
 }
