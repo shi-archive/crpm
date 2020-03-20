@@ -1,6 +1,6 @@
 import cdk = require("@aws-cdk/core");
 import ec2 = require("@aws-cdk/aws-ec2");
-import cb = require("crpm");
+import crpm = require("crpm");
 
 require("dotenv").config({ path: `${__dirname}/../../../../.env` });
 
@@ -10,7 +10,7 @@ export class Instance extends cdk.Stack {
     
     const name = process.env.APP_NAME;
     
-    let props: cb.Writeable<ec2.CfnInstanceProps> = cb.loadProps(`${__dirname}/props.yaml`);
+    let props: crpm.Writeable<ec2.CfnInstanceProps> = crpm.loadProps(`${__dirname}/props.yaml`);
     props.iamInstanceProfile = name;
     props.imageId = process.env.IMAGE_ID;
     props.keyName = process.env.KEY_NAME;

@@ -1,6 +1,7 @@
 analytics:
   athena:
     named-query: CfnNamedQueryProps
+    work-group: CfnWorkGroupProps
   data-pipeline:
     pipeline: CfnPipelineProps
   elasticsearch:
@@ -93,6 +94,8 @@ compute:
     instance: CfnInstanceProps
     internet-gateway: CfnInternetGatewayProps
     launch-template: CfnLaunchTemplateProps
+    local-gateway-route: CfnLocalGatewayRouteProps
+    local-gateway-route-table-vpc-association: CfnLocalGatewayRouteTableVPCAssociationProps
     nat-gateway: CfnNatGatewayProps
     network-acl: CfnNetworkAclProps
     network-acl-entry: CfnNetworkAclEntryProps
@@ -273,6 +276,8 @@ developer-tools:
     webhook: CfnWebhookProps
   codestar:
     github-repository: CfnGitHubRepositoryProps
+  codestar-connections:
+    connection: CfnConnectionProps
   codestar-notifications:
     notification-rule: CfnNotificationRuleProps
 end-user-computing:
@@ -335,6 +340,12 @@ iot:
   iot-things-graph:
     flow-template: CfnFlowTemplateProps
 management-governance:
+  appconfig: 
+    application: CfnApplicationProps
+    configuration-profile: CfnConfigurationProfileProps
+    deployment: CfnDeploymentProps
+    deployment-strategy: CfnDeploymentStrategyProps
+    environment: CfnEnvironmentProps
   application-auto-scaling: 
     scalable-target: CfnScalableTargetProps
     scaling-policy: CfnScalingPolicyProps
@@ -346,6 +357,8 @@ management-governance:
     scheduled-action: CfnScheduledActionProps
   auto-scaling-plans:
     scaling-plan: CfnScalingPlanProps
+  chatbot:
+    slack-channel-configuration: CfnSlackChannelConfigurationProps
   cloudformation:
     custom-resource: CfnCustomResourceProps
     macro: CfnMacroProps
@@ -356,6 +369,7 @@ management-governance:
   cloudwatch:
     alarm: CfnAlarmProps
     anomaly-detector: CfnAnomalyDetectorProps
+    composite-alarm: CfnCompositeAlarmProps
     dashboard: CfnDashboardProps
     insight-rule: CfnInsightRuleProps
   config:
@@ -363,8 +377,10 @@ management-governance:
     config-rule: CfnConfigRuleProps
     configuration-aggregator: CfnConfigurationAggregatorProps
     configuration-recorder: CfnConfigurationRecorderProps
+    conformance-pack: CfnConformancePackProps
     delivery-channel: CfnDeliveryChannelProps
     organization-config-rule: CfnOrganizationConfigRuleProps
+    organization-conformance-pack: CfnOrganizationConformancePackProps
     remediation-configuration: CfnRemediationConfigurationProps
   events:
     event-bus: CfnEventBusProps
@@ -476,17 +492,17 @@ networking-content-delivery:
     usage-plan-key: CfnUsagePlanKeyProps
     vpc-link: CfnVpcLinkProps
   api-gateway-v2:
-    api: CfnApiV2Props
-    api-mapping: CfnApiMappingV2Props
-    authorizer: CfnAuthorizerV2Props
-    deployment: CfnDeploymentV2Props
-    domain-name: CfnDomainNameV2Props
-    integration: CfnIntegrationV2Props
-    integration-response: CfnIntegrationResponseV2Props
-    model: CfnModelV2Props
-    route: CfnRouteV2Props
-    route-response: CfnRouteResponseV2Props
-    stage: CfnStageV2Props
+    api: CfnApiProps
+    api-mapping: CfnApiMappingProps
+    authorizer: CfnAuthorizerProps
+    deployment: CfnDeploymentProps
+    domain-name: CfnDomainNameProps
+    integration: CfnIntegrationProps
+    integration-response: CfnIntegrationResponseProps
+    model: CfnModelProps
+    route: CfnRouteProps
+    route-response: CfnRouteResponseProps
+    stage: CfnStageProps
   app-mesh:
     mesh: CfnMeshProps
     route: CfnRouteProps
@@ -523,6 +539,10 @@ robotics:
 security-identity-compliance:
   access-analyzer:
     analyzer: CfnAnalyzerProps
+  acm-pca:
+    certificate: CfnCertificateProps
+    certificate-authority: CfnCertificateAuthorityProps
+    certificate-authority-activation: CfnCertificateAuthorityActivationProps
   certificate-manager: 
     certificate: CfnCertificateProps
   cognito:
@@ -541,6 +561,9 @@ security-identity-compliance:
   directory-service:
     microsoft-ad: CfnMicrosoftADProps
     simple-ad: CfnSimpleADProps
+  fms:
+    notification-channel: CfnNotificationChannelProps
+    policy: CfnPolicyProps
   guardduty:
     detector: CfnDetectorProps
     filter: CfnFilterProps
@@ -587,6 +610,7 @@ security-identity-compliance:
     regex-pattern-set: CfnRegexPatternSetProps
     rule-group: CfnRuleGroupProps
     web-acl: CfnWebACLProps
+    web-acl-association: CfnWebACLAssociationProps
   waf-regional:
     byte-match-set: CfnByteMatchSetProps
     geo-match-set: CfnGeoMatchSetProps
