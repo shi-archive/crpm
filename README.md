@@ -10,4 +10,4 @@
 
 * `crpm` show how to use Cloud Resource Property Manager.
 * `npm run build` compile TypeScript to JavaScript.
-* `npm run buildw` watch for changes and compile TypeScript to JavaScript.
+* `npm run watch` watch for changes and compile TypeScript to JavaScript.

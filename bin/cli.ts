@@ -318,7 +318,7 @@ async function initCommandLine() {
 
       const templates: any = await new Promise((resolve, reject) => {
         const extensionFilter = through2
-          .obj(function(item, _enc, next) {
+          .obj(function (item, _enc, next) {
             if (item.path.match(/(.*)\/template.ts$/) && !item.path.match(/(.*)\/node_modules\/(.*)/)) {
               this.push(item);
             }

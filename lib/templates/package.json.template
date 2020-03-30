@@ -2,6 +2,6 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "buildw": "tsc -w"
+    "watch": "tsc -w"
   }
 }

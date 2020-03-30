@@ -52,7 +52,7 @@ async function initCommandLine() {
     }
 
     const services: any = await new Promise((resolve, reject) => {
-      const extensionFilter = through2.obj(function(item, _enc, next) {
+      const extensionFilter = through2.obj(function (item, _enc, next) {
         if (item.path.match(/(.*).generated.d.ts$/)) {
           this.push(item);
         }
