@@ -54,6 +54,7 @@ application-integration:
   event-schemas:
     discoverer: CfnDiscovererProps
     registry: CfnRegistryProps
+    registry-policy: CfnRegistryPolicyProps
     schema: CfnSchemaProps
   sns:
     subscription: CfnSubscriptionProps
@@ -103,6 +104,7 @@ compute:
     network-interface-attachment: CfnNetworkInterfaceAttachmentProps
     network-interface-permission: CfnNetworkInterfacePermissionProps
     placement-group: CfnPlacementGroupProps
+    prefix-list: CfnPrefixListProps
     route: CfnRouteProps
     route-table: CfnRouteTableProps
     security-group: CfnSecurityGroupProps
@@ -162,6 +164,13 @@ compute:
     listener-rule: CfnListenerRuleProps
     load-balancer: CfnLoadBalancerProps
     target-group: CfnTargetGroupProps
+  image-builder:
+    componentProps: CfnComponentProps
+    distribution-configuration: CfnDistributionConfigurationProps
+    image: CfnImageProps
+    image-pipeline: CfnImagePipelineProps
+    image-recipe: CfnImageRecipeProps
+    infrastructure-configuration: CfnInfrastructureConfigurationProps
   lambda:
     alias: CfnAliasProps
     event-invoke-config: CfnEventInvokeConfigProps
@@ -171,6 +180,14 @@ compute:
     layer-version-permission: CfnLayerVersionPermissionProps
     permission: CfnPermissionProps
     version: CfnVersionProps
+  network-manager:
+    customer-gateway-association: CfnCustomerGatewayAssociationProps
+    device: CfnDeviceProps
+    global-network: CfnGlobalNetworkProps
+    link: CfnLinkProps
+    link-association: CfnLinkAssociationProps
+    site: CfnSiteProps
+    transit-gateway-registration: CfnTransitGatewayRegistrationProps
   sam:
     api: CfnApiProps
     application: CfnApplicationProps
@@ -180,6 +197,8 @@ compute:
 cost-management:
   budgets: 
     budget: CfnBudgetProps
+  ce:
+    cost-category: CfnCostCategoryProps
 customer-engagement:
   pinpoint:
     adm-channel: CfnADMChannelProps
@@ -213,6 +232,9 @@ customer-engagement:
     receipt-rule-set: CfnReceiptRuleSetProps
     template: CfnTemplateProps
 db:
+  cassandra:
+    keyspace: CfnKeyspaceProps
+    table: CfnTableProps
   dax:
     cluster: CfnClusterProps
     parameter-group: CfnParameterGroupProps
@@ -250,6 +272,8 @@ db:
     db-cluster-parameter-group: CfnDBClusterParameterGroupProps
     db-instance: CfnDBInstanceProps
     db-parameter-group: CfnDBParameterGroupProps
+    db-proxy: CfnDBProxyProps
+    db-proxy-target-group: CfnDBProxyTargetGroupProps
     db-security-group: CfnDBSecurityGroupProps
     db-security-group-ingress: CfnDBSecurityGroupIngressProps
     db-subnet-group: CfnDBSubnetGroupProps
@@ -322,6 +346,7 @@ iot:
     certificate: CfnCertificateProps
     policy: CfnPolicyProps
     policy-principal-attachment: CfnPolicyPrincipalAttachmentProps
+    provisioning-template: CfnProvisioningTemplateProps
     thing: CfnThingProps
     thing-principal-attachment: CfnThingPrincipalAttachmentProps
     topic-rule: CfnTopicRuleProps
@@ -402,6 +427,8 @@ management-governance:
     volume: CfnVolumeProps
   opsworks-cm:
     server: CfnServerProps
+  resource-groups:
+    group: CfnGroupProps
   service-catalog:
     accepted-portfolio-share: CfnAcceptedPortfolioShareProps
     cloudformation-product: CfnCloudFormationProductProps
@@ -426,6 +453,8 @@ management-governance:
     parameter: CfnParameterProps
     patch-baseline: CfnPatchBaselineProps
     resource-data-sync: CfnResourceDataSyncProps
+  synthetics:
+    canary: CfnCanaryProps
 media-services:
   media-convert:
     job-template: CfnJobTemplateProps
@@ -449,6 +478,8 @@ migration-transfer:
     server: CfnServerProps
     user: CfnUserProps
 ml:
+  codeguru-profiler:
+    profiling-group: CfnProfilingGroupProps
   sagemaker:
     code-repository: CfnCodeRepositoryProps
     endpoint: CfnEndpointProps
@@ -513,6 +544,10 @@ networking-content-delivery:
     cloudfront-origin-access-identity: CfnCloudFrontOriginAccessIdentityProps
     distribution: CfnDistributionProps
     streaming-distribution: CfnStreamingDistributionProps
+  global-accelerator:
+    accelerator: CfnAcceleratorProps
+    endpoint-group: CfnEndpointGroupProps
+    listener: CfnListenerProps
   route-53:
     health-check: CfnHealthCheckProps
     hosted-zone: CfnHostedZoneProps
@@ -558,6 +593,8 @@ security-identity-compliance:
     user-pool-ui-customization-attachment: CfnUserPoolUICustomizationAttachmentProps
     user-pool-user: CfnUserPoolUserProps
     user-pool-user-to-group-attachment: CfnUserPoolUserToGroupAttachmentProps
+  detective:
+    member-invitation: CfnMemberInvitationProps
   directory-service:
     microsoft-ad: CfnMicrosoftADProps
     simple-ad: CfnSimpleADProps
@@ -588,6 +625,10 @@ security-identity-compliance:
   kms:
     alias: CfnAliasProps
     key: CfnKeyProps
+  macie:
+    custom-data-identifier: CfnCustomDataIdentifierProps
+    findings-filter: CfnFindingsFilterProps
+    session: CfnSessionProps
   ram:
     resource-share: CfnResourceShareProps
   secrets-manager:
@@ -629,6 +670,7 @@ storage:
     backup-selection: CfnBackupSelectionProps
     backup-vault: CfnBackupVaultProps
   efs:
+    access-point: CfnAccessPointProps
     file-system: CfnFileSystemProps
     mount-target: CfnMountTargetProps
   fsx:
