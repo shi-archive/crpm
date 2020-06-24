@@ -68,8 +68,11 @@ async function initCommandLine() {
     });
 
     for (const key of Object.keys(services)) {
-      const match = services[key].match(/(.*)\/aws-(.*)lib\/(.*).generated.d.ts$/);
+      const match = services[key].match(/(.*)\/aws-(.*)\/lib\/(.*).generated.d.ts$/);
       if (match) {
+        if (match[2].match(/node_modules/)) {
+          continue;
+        }
         const service = match[3];
         if (service.match(/-augmentations$/)) {
           continue;

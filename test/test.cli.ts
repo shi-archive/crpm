@@ -27,7 +27,7 @@ describe('crpm CLI', () => {
     const stdout = result.output[1].toString();
     const stderr = result.output[2].toString();
     const numMatches = (stdout.match(/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+/g) || []).length;
-    expect(numMatches).to.be.at.least(542);
+    expect(numMatches).to.be.at.least(535);
     expect(stdout).to.contain('compute/ec2/instance');
     expect(stderr).to.equal('');
   });

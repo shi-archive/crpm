@@ -305,14 +305,6 @@ developer-tools:
   codestar-notifications:
     notification-rule: CfnNotificationRuleProps
 end-user-computing:
-  appstream:
-    directory-config: CfnDirectoryConfigProps
-    fleet: CfnFleetProps
-    image-builder: CfnImageBuilderProps
-    stack: CfnStackProps
-    stack-fleet-association: CfnStackFleetAssociationProps
-    stack-user-association: CfnStackUserAssociationProps
-    user: CfnUserProps
   workspaces:
     workspace: CfnWorkspaceProps
 game-development:
