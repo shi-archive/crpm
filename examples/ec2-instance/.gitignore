@@ -1,6 +1,6 @@
 cdk.out
 manifest.json
-stack.template.json
+stack*.template.json
 template.d.ts
 template.js
 tree.json
