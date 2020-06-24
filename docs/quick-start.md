@@ -21,7 +21,7 @@ The easiest and recommended way to get started, would be to launch a [Cloud9](ht
 2.  Install [AWS CDK](https://aws.amazon.com/cdk) (**cdk**) and Cloud Resource Property Manager (**crpm**) globally.
 
     ```bash
-    npm install -g aws-cdk@1.47.0 crpm@1.9.0
+    npm install -g aws-cdk@1.47.0 crpm@1.9.1
     ```
 
 ### Quick Tutorial
