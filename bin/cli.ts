@@ -357,7 +357,7 @@ async function initCommandLine() {
       const templateDirName = process.cwd() + '/' + stack;
       let stackIdentifier = await getStackIdentifier();
       const previousTemplateSize = await getStackTemplateSize(stackIdentifier);
-      
+
       const execFile = util.promisify(child_process.execFile);
       try {
         const { stdout, stderr } = await execFile('cdk', [
@@ -382,7 +382,7 @@ async function initCommandLine() {
       } catch (err) {
         throw err;
       }
-      
+
       stackIdentifier = await getStackIdentifier(); // in case it changed
       if (stackIdentifier) {
         // Create a stack.template.json symlink for backwards compatibility
@@ -393,7 +393,7 @@ async function initCommandLine() {
         }
         await fs.symlink(`${templateDirName}/${stackIdentifier}.template.json`, symlinkPath, 'file');
       }
-      
+
       const templateSize = await getStackTemplateSize(stackIdentifier);
       if (previousTemplateSize) {
         const previousTemplateSizeMessage = previousTemplateSize !== templateSize ? previousTemplateSize + ' -> ' : '';
@@ -406,7 +406,7 @@ async function initCommandLine() {
       } else {
         data('%s %s %s', colors.green('CREATE'), `./${stack}/stack.template.json`, colors.cyan(`(${templateSize} bytes)`));
       }
-      
+
       async function getStackIdentifier(): Promise<string> {
         const manifestPath = `${templateDirName}/manifest.json`;
         const manifestPathExists = await fs.pathExists(manifestPath);
@@ -422,7 +422,7 @@ async function initCommandLine() {
         }
         return '';
       }
-      
+
       async function getStackTemplateSize(stackIdentifier: string): Promise<number> {
         const templatePath = `${templateDirName}/${stackIdentifier}.template.json`;
         const templatePathExists = await fs.pathExists(templatePath);

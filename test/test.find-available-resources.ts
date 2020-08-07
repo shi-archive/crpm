@@ -13,7 +13,7 @@ describe('find-available-resources CLI', () => {
     const result = spawnSync('node', [__dirname + '/../bin/find-available-resources.js', '-v']);
     const stderr = result.output[2].toString();
     const numMatches = (stderr.match(/[a-z0-9]+\/[A-Za-z0-9]+/g) || []).length;
-    expect(numMatches).to.be.at.least(535);
+    expect(numMatches).to.be.at.least(546);
     expect(stderr).to.contain('ec2/CfnInstanceProps');
   });
 });
