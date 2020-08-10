@@ -226,7 +226,7 @@ async function initCommandLine() {
       }
     }
 
-    const resources = await yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
+    const resources = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
       schema: yaml.JSON_SCHEMA
     });
 
@@ -244,7 +244,7 @@ async function initCommandLine() {
       }
 
       const serviceFormatted = service.replace(/-/g, '');
-      const serviceOverrides = await yaml.safeLoad(await fs.readFile(__dirname + '/../lib/service-overrides.yaml', 'utf-8'));
+      const serviceOverrides = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/service-overrides.yaml', 'utf-8'));
       const serviceCdk = serviceOverrides.hasOwnProperty(serviceFormatted) ? serviceOverrides[serviceFormatted] : serviceFormatted;
       const moduleName = '@aws-cdk/aws-' + serviceCdk;
       const resourcePropsInterfaceName = resources[category][service][resource];
@@ -268,8 +268,8 @@ async function initCommandLine() {
 
       const templatePath = `${outputDirectory}/${stackPath}/template.ts`;
       if (!(await fs.pathExists(templatePath))) {
-        const resources = await yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
-          schema: yaml.JSON_SCHEMA
+        const resources = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
+            schema: yaml.JSON_SCHEMA
         });
         const fileContents = (await fs.readFile(`${__dirname}/../lib/templates/cdk-stack.ts.template`, 'utf-8'))
           .replace(/%%SERVICE_NAME%%/g, serviceCdk)
@@ -306,7 +306,7 @@ async function initCommandLine() {
   async function cliList(klawPath: string, available: boolean) {
     if (available) {
       printAll(
-        await yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
+        yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
           schema: yaml.JSON_SCHEMA
         })
       );
