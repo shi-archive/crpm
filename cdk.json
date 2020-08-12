@@ -2,6 +2,5 @@
   "app": "node bin/cdk-app.js",
   "versionReporting": false,
   "pathMetadata": false,
-  "assetMetadata": false,
-  "staging": false
+  "assetMetadata": false
 }
