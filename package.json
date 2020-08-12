@@ -1,6 +1,6 @@
 {
   "name": "crpm",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "Command line tool for importing AWS CDK stacks and resource properties templates",
   "keywords": [
     "cloud resource property manager"
