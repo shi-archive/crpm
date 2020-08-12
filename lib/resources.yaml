@@ -1,6 +1,5 @@
 analytics:
   athena:
-    data-catalog: CfnDataCatalogProps
     named-query: CfnNamedQueryProps
     work-group: CfnWorkGroupProps
   data-pipeline:
@@ -144,7 +143,6 @@ compute:
   ecr:
     repository: CfnRepositoryProps
   ecs:
-    capacity-provider: CfnCapacityProviderProps
     cluster: CfnClusterProps
     primary-task-set: CfnPrimaryTaskSetProps
     service: CfnServiceProps
@@ -263,7 +261,6 @@ db:
     db-subnet-group: CfnDBSubnetGroupProps
   qldb:
     ledger: CfnLedgerProps
-    stream: CfnStreamProps
   redshift:
     cluster: CfnClusterProps
     cluster-parameter-group: CfnClusterParameterGroupProps
@@ -374,7 +371,6 @@ management-governance:
     deployment: CfnDeploymentProps
     deployment-strategy: CfnDeploymentStrategyProps
     environment: CfnEnvironmentProps
-    hosted-configuration-version: CfnHostedConfigurationVersionProps
   application-auto-scaling: 
     scalable-target: CfnScalableTargetProps
     scaling-policy: CfnScalingPolicyProps
