@@ -1,1 +1,1 @@
-export { loadProps, Writeable } from './props';
+export { load, Writeable } from './props';

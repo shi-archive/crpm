@@ -6,13 +6,13 @@ import props = require('../lib/props');
 
 describe('loadProps function', () => {
   it('should return empty object for fixtures/empty.props.yaml', () => {
-    const result = props.loadProps(`${__dirname}/fixtures/empty.props.yaml`);
+    const result = props.load(`${__dirname}/fixtures/empty.props.yaml`);
     expect(result).to.be.an('object');
     expect(result).to.eql({});
   });
 
   it('should return expected object for fixtures/example.props.yaml', () => {
-    const result = props.loadProps(`${__dirname}/fixtures/example.props.yaml`);
+    const result = props.load(`${__dirname}/fixtures/example.props.yaml`);
     expect(result).to.be.an('object');
     expect(result).to.eql({
       property: null

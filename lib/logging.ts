@@ -14,7 +14,7 @@ export function setVerbose(enabled = true) {
 }
 
 export function error(fmt: string, ...args: any[]) {
-  console.error(colors.red(util.format(fmt, ...args)));
+  console.error(colors.magenta(util.format(fmt, ...args)));
 }
 
 export function debug(fmt: string, ...args: any[]) {

@@ -192,7 +192,7 @@ export async function outputYaml(props: any, parentComment?: string, indentation
   return output.replace(/[\n]{2,}$/, '\n');
 }
 
-export function loadProps(filename: string): any {
+export function load(filename: string): any {
   try {
     const props = yaml.safeLoad(fs.readFileSync(filename, 'utf8'), {
       schema: yaml.JSON_SCHEMA

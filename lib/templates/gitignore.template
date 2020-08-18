@@ -1,7 +1,0 @@
-cdk.out
-manifest.json
-stack*.template.json
-template.d.ts
-template.js
-tree.json
-node_modules

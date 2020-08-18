@@ -2,15 +2,15 @@
 
 import child_process = require('child_process');
 import colors = require('colors/safe');
+import findup = require('find-up');
 import fs = require('fs-extra');
+import glob = require('glob');
 import inquirer = require('inquirer');
 import yaml = require('js-yaml');
-import klaw = require('klaw');
 import path = require('path');
-import through2 = require('through2');
 import util = require('util');
 import yargs = require('yargs');
-
+import { parse } from '@typescript-eslint/typescript-estree';
 import { data, debug, error, isVerbose, setVerbose } from '../lib/logging';
 import { outputYaml, parseGeneratedCdkFile } from '../lib/props';
 
@@ -22,62 +22,44 @@ async function parseCommandLineArguments() {
       alias: 'v',
       desc: 'Show debug output'
     })
-    .command(['import <STACKS..>', 'i <STACKS..>'], 'Imports stack files', yargs =>
+    .command(['import <RESOURCES..>', 'i <RESOURCES..>'], 'Imports resource property files and inserts code into stack files', yargs =>
       yargs
-        .positional('STACKS', {
-          describe: 'One or more stack paths.  To see list of available stack paths, run: crpm ls -a',
+        .positional('RESOURCES', {
+          describe: 'One or more resource paths.  To see list of available resource paths, run: crpm ls',
           type: 'string'
         })
-        .option('output-directory', {
+        .option('stack', {
           type: 'string',
-          alias: 'o',
-          desc: 'Write templates and related files in directories in given directory'
+          alias: 's',
+          desc: 'Name of stack to modify.  To see list of available stacks, run: cdk ls'
         })
         .option('rename', {
           type: 'string',
           alias: 'r',
-          desc: 'Override default stack path with given stack path.  Only one stack can be imported at a time when specifying this option'
+          desc: 'Override default resource path with given path.  Only one resource can be imported at a time when specifying this option'
         })
         .epilogue(
           [
             'Examples:',
-            '  Import compute/ec2/instance to current directory:',
+            '  Import compute/ec2/instance to resource (res) directory:',
             '  crpm i compute/ec2/instance',
             '',
-            '  Import compute/ec2/instance to current directory with different stack path:',
-            '  crpm i compute/ec2/instance -r infra/compute/ec2/instance-bastion'
+            '  Import compute/ec2/instance to resource (res) directory with different resource path:',
+            '  crpm i compute/ec2/instance -r compute/ec2/instance-bastion',
+            '',
+            '  Import multiple resources:',
+            '  crpm i storage/s3/bucket storage/s3/bucket-policy'
           ].join('\n')
         )
     )
-    .command(['list [PATH]', 'ls [PATH]'], 'Lists stack paths', yargs =>
+    .command(['list', 'ls'], 'Lists resource paths available to import', yargs =>
       yargs
-        .positional('PATH', {
-          describe: 'Path to a directory or file',
-          type: 'string'
-        })
-        .option('available', {
-          type: 'boolean',
-          alias: 'a',
-          desc: 'List default stacks available through Cloud Resource Property Manager'
-        })
         .epilogue(
           [
-            'Examples:',
-            '  List default stacks available through Cloud Resource Property Manager:',
-            '  crpm ls -a',
-            '',
-            '  List stacks in current directory:',
+            'Example:',
             '  crpm ls'
           ].join('\n')
         )
-    )
-    .command(['synthesize <STACKS..>', 'synth <STACKS..>'], 'Synthesizes CloudFormation templates', yargs =>
-      yargs
-        .positional('STACKS', {
-          describe: 'One or more stack paths.  To see list of stack paths in current directory, run: crpm ls',
-          type: 'string'
-        })
-        .epilogue(['Example:', '  Synthesize CloudFormation template for compute/ec2/instance:', '  crpm synth compute/ec2/instance'].join('\n'))
     )
     .version()
     .demandCommand(1, 'Please specify a command.')
@@ -86,14 +68,11 @@ async function parseCommandLineArguments() {
     .epilogue(
       [
         'Examples:',
-        '  List default stacks available through Cloud Resource Property Manager:',
-        '  crpm ls -a',
+        '  List resource paths available to import:',
+        '  crpm ls',
         '',
-        '  Import compute/ec2/instance to current directory:',
-        '  crpm i compute/ec2/instance',
-        '',
-        '  Synthesize CloudFormation template for compute/ec2/instance:',
-        '  crpm synth compute/ec2/instance'
+        '  Import compute/ec2/instance to resource (res) directory:',
+        '  crpm i compute/ec2/instance'
       ].join('\n')
     ).argv;
 }
@@ -106,7 +85,7 @@ async function initCommandLine() {
 
   debug('Command line arguments: %s', JSON.stringify(argv));
 
-  const fileContents = await fs.readFile(`${__dirname}/../LICENSE`, 'utf-8');
+  const fileContents = fs.readFileSync(`${__dirname}/../LICENSE`, 'utf8');
 
   if (!(await fs.pathExists(`${__dirname}/../.agreed`))) {
     const agreeToLicense = 'agreeToLicense';
@@ -135,209 +114,283 @@ async function initCommandLine() {
     switch (command) {
       case 'import':
       case 'i':
-        return await cliImport(args.stacks, args.outputDirectory, args.rename);
+        return await cliImport(args.resources, args.stack, args.rename);
 
       case 'list':
       case 'ls':
-        return await cliList(args.path, args.available);
-
-      case 'synthesize':
-      case 'synth':
-        return await cliSynthesize(args.stacks);
+        return await cliList();
 
       default:
         throw new Error('Unknown command: ' + command);
     }
   }
 
-  async function cliImport(stacks: string[], outputDirectory: string | undefined, rename: string | undefined) {
-    let packages = null;
-
-    if (rename && stacks.length > 1) {
-      error('You can only import one stack at a time when renaming');
-      return 1; // exit code
-    }
-
-    // Make the default output directory the current directory if it wasn't specified
-    if (outputDirectory == null) {
-      outputDirectory = '.';
-    } else {
-      fs.mkdirpSync(outputDirectory);
-    }
-
-    // Copy a gitignore file to the output directory if it doesn't already contain one
-    const gitignorePath = `${outputDirectory}/.gitignore`;
-    if (!(await fs.pathExists(gitignorePath))) {
-      await fs.copy(`${__dirname}/../lib/templates/gitignore.template`, gitignorePath);
-      data('%s %s %s', colors.green('CREATE'), gitignorePath, colors.cyan('(' + fs.statSync(gitignorePath).size + ' bytes)'));
-    }
-
-    // Copy a TypeScript configuration file to the output directory if it doesn't already contain one
-    const tsconfigPath = `${outputDirectory}/tsconfig.json`;
-    if (!(await fs.pathExists(tsconfigPath))) {
-      await fs.copy(`${__dirname}/../lib/templates/tsconfig.json.template`, tsconfigPath);
-      data('%s %s %s', colors.green('CREATE'), tsconfigPath, colors.cyan('(' + fs.statSync(tsconfigPath).size + ' bytes)'));
-    }
-
-    // Copy an NPM package.json file to the output directory if it doesn't already contain one
-    const packagePath = `${outputDirectory}/package.json`;
-    if (!(await fs.pathExists(packagePath))) {
-      await fs.copy(`${__dirname}/../lib/templates/package.json.template`, packagePath);
-      data('%s %s', colors.green('CREATE'), packagePath, colors.cyan('(' + fs.statSync(packagePath).size + ' bytes)'));
-    }
-
-    // Install dependencies
-    const dependencies: any = {
-      '@types/node': 'devDependencies',
-      typescript: 'devDependencies',
-      'aws-cdk': 'dependencies',
-      crpm: 'dependencies'
-    };
-
-    for (const moduleName in dependencies) {
-      if (!(await fs.pathExists(`${outputDirectory}/node_modules/${moduleName}`))) {
-        if (packages == null) {
-          packages = require(__dirname + '/../package.json');
-        }
-
-        let packageVersion = '';
-        if (moduleName === 'crpm') {
-          packageVersion = '@' + packages.version;
-        } else if (moduleName in packages[dependencies[moduleName]]) {
-          packageVersion = packages[dependencies[moduleName]][moduleName].replace(/[\^~]{0,1}(.*)/, '@$1'); // use exact version
-        }
-
-        const execFile = util.promisify(child_process.execFile);
-        const { stdout, stderr } = await execFile('npm', [
-          '--silent',
-          'install',
-          `${moduleName}${packageVersion}`,
-          '--prefix',
-          outputDirectory,
-          dependencies[moduleName] === 'dependencies' ? '--save' : '--save-dev'
-        ]);
-
-        if (stdout) {
-          data('%s %s', colors.green('NPM'), stdout.trim());
-        }
-        if (stderr) {
-          data('%s %s', colors.red('NPM'), stderr.trim());
-        }
+  async function cliImport(resourcePaths: string[], stackName: string | undefined, rename: string | undefined) {
+    if (rename) {
+      if (resourcePaths.length > 1) {
+        error('You can only import one resource at a time when renaming');
+        return 1; // exit code
+      }
+      if (!/^[a-zA-Z0-9-_\/\\]+$/.test(rename)) {
+        error(`You cannot rename to ${rename} because it contains invalid characters`);
+        return 1; // exit code
       }
     }
 
-    const resources = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
+    // Crawl up to the nearest directory containing package.json and assume that it is a CDK app root directory
+    const appRootPath = await findup(async directory => {
+  		const inApp = await findup.exists(path.join(directory, 'package.json'));
+  		return inApp && directory;
+  	}, {
+  	  cwd: '.',
+  	  type: 'directory'
+  	});
+  	if (appRootPath == null) {
+  	  error('You can only import inside a CDK app directory.  To create one, please run: cdk init app --language typescript');
+      return 1; // exit code
+  	}
+
+    // Get list of stack names from CDK
+    let stackNames = [];
+    const execFile = util.promisify(child_process.execFile);
+    try {
+      const { stdout, stderr } = await execFile('cdk', [
+        '--verbose=' + isVerbose.toString(),
+        'ls'
+      ]);
+      if (stdout) {
+        stackNames = stdout.split("\n").filter(Boolean);
+        debug('%s %s', colors.green('CDK'), stdout.trim());
+      }
+      if (stderr) {
+        debug('%s %s', colors.magenta('CDK'), stderr.trim());
+      }
+    } catch (err) {
+      debug('%s %s', colors.magenta('CDK'), err.message.trim());
+      const suggestion = process.cwd() !== appRootPath ? `Did you mean to run this command inside ${appRootPath} instead?  ` : '';
+      error(`${suggestion}No stack found.  CDK app directory must contain at least one stack.  To see list of stack names, please run: cdk ls`);
+      return 1; // exit code
+    }
+
+    // Narrow down to just one stack name
+    if (stackNames.length == 0) {
+      error((stackName ? `Stack ${stackName} not` : 'No stack') + ' found.  CDK app directory must contain at least one stack.  To see list of stack names, please run: cdk ls');
+      return 1; // exit code
+    } else if (stackNames.length == 1) {
+      if (stackName && stackName !== stackNames[0]) {
+        error(`Stack ${stackName} not found.  Did you mean ${stackNames[0]}?  To see list of stack names, please run: cdk ls`);
+        return 1; // exit code
+      }
+      stackName = stackNames[0];
+    } else {
+      if (!stackName || !stackNames.includes(stackName)) {
+        error('Multiple stacks found.  Specify a stack name using the -s option.  For help, please run: crpm i -h');
+        return 1; // exit code
+      }
+    }
+
+    // Identify path to stack file
+    let stackPath = '';
+    const typeScriptFiles = glob.sync('[!test]*/**[!.d].ts', {
+      cwd: appRootPath,
+      silent: true,
+      nodir: true
+    });
+    const stackStmtRegex = new RegExp('class\\s+' + stackName, 's');
+    let stackFiles = await Promise.all(typeScriptFiles.map(async function(filename) {
+      return fs.readFile(filename, 'utf8').then(function(content) {
+        if (stackStmtRegex.exec(content)) {
+          return filename;
+        }
+        return undefined;
+      });
+    })).catch(debug);
+    stackFiles = stackFiles ? stackFiles.filter(f => f) : [];
+    if (stackFiles.length == 1) {
+      stackPath = stackFiles[0];
+    } else if (stackFiles.length > 1) {
+      debug(stackFiles.join(', ') + ` contain ${stackName}`);
+    }
+    if (!stackPath) {
+      error(`Unable to locate file containing ${stackName}`);
+      return 1; // exit code
+    }
+
+    // Install crpm dependency
+    const appPackages = require(`${appRootPath}/package.json`);
+    if (!('crpm' in appPackages['dependencies'])) {
+      data('%s Adding crpm to package.json and installing...', colors.green('NPM'));
+      const crpmPackages = require(__dirname + '/../package.json');
+      const execFile = util.promisify(child_process.execFile);
+      const { stdout, stderr } = await execFile('npm', ['--silent', 'install', `crpm@${crpmPackages.version}`, '--prefix', appRootPath]);
+      if (stdout) {
+        data('%s %s', colors.green('NPM'), stdout.trim());
+      }
+      if (stderr) {
+        data('%s %s', colors.magenta('NPM'), stderr.trim());
+      }
+    }
+
+    const resources = yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
       schema: yaml.JSON_SCHEMA
     });
 
-    // Copy the specified stacks to the output directory
-    for (const stack of stacks) {
-      const match = stack.split('/');
+    // See if crpm needs to be imported
+    let fileContents = fs.readFileSync(`${appRootPath}/${stackPath}`, 'utf8');
+    let additionalModifyComment = '';
+    let crpmImportStmtRegexLastIndex = 0;
+    const crpmImportStmtRegex = /import.*crpm['"\s]*;/gs;
+    if (!crpmImportStmtRegex.exec(fileContents)) {
+      // Find the statement that contains import*@aws-cdk/core* and insert a crpm import statement under it
+      const insertContents = "\nimport * as crpm from 'crpm';";
+      const cdkImportStmtRegex = /import.*@aws-cdk\/core['"\s]*;/gs;
+      if (cdkImportStmtRegex.exec(fileContents)) {
+        fileContents = fileContents.slice(0, cdkImportStmtRegex.lastIndex) +
+          insertContents +
+          fileContents.slice(cdkImportStmtRegex.lastIndex, fileContents.length);
+      } else {
+        error(`Could not insert crpm import statement into ${stackPath}.  Please add this manually and try again:${insertContents}`);
+        return 1; // exit code
+      }
+    } else {
+      crpmImportStmtRegexLastIndex = crpmImportStmtRegex.lastIndex;
+    }
+
+    // Import the specified resources
+    for (const resourcePath of resourcePaths) {
+      const match = resourcePath.split('/');
       const category = match[0];
       const service = match[1];
       const resource = match[2];
-      const stackPath = rename ? rename : stack;
+      const propsPath = `res/${rename ? rename : resourcePath}/props.yaml`;
 
       if (!resources[category] || !resources[category][service] || !resources[category][service][resource]) {
-        data('%s %s', colors.red('UNKNOWN'), stack);
+        data('%s %s', colors.magenta('UNKNOWN'), resourcePath);
         continue;
       }
 
       const serviceFormatted = service.replace(/-/g, '');
-      const serviceOverrides = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/service-overrides.yaml', 'utf-8'));
+      const serviceOverrides = yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/service-overrides.yaml', 'utf8'));
       const serviceCdk = serviceOverrides.hasOwnProperty(serviceFormatted) ? serviceOverrides[serviceFormatted] : serviceFormatted;
       const moduleName = '@aws-cdk/aws-' + serviceCdk;
       const resourcePropsInterfaceName = resources[category][service][resource];
 
-      // Install dependency
-      if (!(await fs.pathExists(`${outputDirectory}/node_modules/${moduleName}`))) {
-        if (packages == null) {
-          packages = require(__dirname + '/../package.json');
+      // See if a specific service needs to be imported
+      const serviceImportStmtRegex = new RegExp('import(?:.*)' + serviceCdk + '(?:.*)' + moduleName + '(?:[\'"\\s]*);?', 'gs');
+      if (!serviceImportStmtRegex.exec(fileContents)) {
+        // Find the crpm import statement and insert a service import statement under it
+        if (!crpmImportStmtRegexLastIndex) {
+          if (crpmImportStmtRegex.exec(fileContents)) {
+            crpmImportStmtRegexLastIndex = crpmImportStmtRegex.lastIndex;
+          }
         }
-        const packageVersion = packages.dependencies[moduleName].replace(/[\^~]{0,1}(.*)/, '$1'); // use exact version
-        const execFile = util.promisify(child_process.execFile);
-        const { stdout, stderr } = await execFile('npm', ['--silent', 'install', `${moduleName}@${packageVersion}`, '--prefix', outputDirectory]);
 
-        if (stdout) {
-          data('%s %s', colors.green('NPM'), stdout.trim());
-        }
-        if (stderr) {
-          data('%s %s', colors.red('NPM'), stderr.trim());
+        const insertContents = `\nimport * as ${serviceCdk} from '${moduleName}';`;
+        if (crpmImportStmtRegexLastIndex) {
+          fileContents = fileContents.slice(0, crpmImportStmtRegexLastIndex) +
+            insertContents +
+            fileContents.slice(crpmImportStmtRegexLastIndex, fileContents.length);
+        } else {
+          error(`Could not insert ${serviceCdk} import statement into ${stackPath}.  Please add this manually and try again:${insertContents}`);
+          return 1; // exit code
         }
       }
 
-      const templatePath = `${outputDirectory}/${stackPath}/template.ts`;
-      if (!(await fs.pathExists(templatePath))) {
-        const resources = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
-            schema: yaml.JSON_SCHEMA
+      // Append the resource at the bottom of the stack constructor
+      let ast;
+      try {
+        ast = parse(fileContents, {
+          loc: true,
+          range: true,
         });
-        const fileContents = (await fs.readFile(`${__dirname}/../lib/templates/cdk-stack.ts.template`, 'utf-8'))
-          .replace(/%%SERVICE_NAME%%/g, serviceCdk)
-          .replace(/%%MODULE_NAME%%/g, moduleName)
-          .replace(/%%RESOURCE_CLASS_NAME%%/g, resources[category][service][resource].replace(/^Cfn/, '').replace(/Props$/, ''));
-
-        try {
-          await fs.outputFile(templatePath, fileContents);
-          data('%s %s %s', colors.green('CREATE'), templatePath, colors.cyan('(' + fs.statSync(templatePath).size + ' bytes)'));
-        } catch (err) {
-          error(err);
+      } catch (err) {
+        error(`${stackPath} could not be parsed.  Hint: ${err.message.trim()}`);
+        return 1; // exit code
+      }
+      if (ast.type === 'Program') {
+        for (const p1 of ast.body) {
+          if (
+            p1.type === 'ExportNamedDeclaration' &&
+            p1.declaration.type === 'ClassDeclaration' &&
+            'property' in p1.declaration.superClass &&
+            p1.declaration.superClass.property.type === 'Identifier' &&
+            p1.declaration.superClass.property.name === 'Stack'
+          ) {
+            for (const p2 of p1.declaration.body.body) {
+              if (
+                p2.type === 'MethodDefinition' &&
+                p2.kind === 'constructor' &&
+                p2.value.type === 'FunctionExpression'
+              ) {
+                const lastStmt = p2.value.body.body[p2.value.body.body.length == 0 ? 0 : p2.value.body.body.length - 1];
+                const constructorStmtEnd = lastStmt.range[1];
+                const startColumn = lastStmt.loc.start.column;
+                const resourceClassName = resources[category][service][resource].replace(/^Cfn/, '').replace(/Props$/, '');
+                const camelCaseResourceClassName = resourceClassName.charAt(0).toLowerCase() + resourceClassName.slice(1);
+                let varName = '';
+                if (rename) {
+                  const varNameParts = path.basename(rename).split(/[-_]/);
+                  varName = varNameParts.shift();
+                  for (const part of varNameParts) {
+                    varName += part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+                  }
+                } else {
+                  varName = camelCaseResourceClassName;
+                }
+                const outputDirectoryToAppRootRelPath = path.relative(path.dirname(stackPath), `${appRootPath}/`);
+                const insertPropsStmt = `const ${varName}Props: crpm.Writeable<${serviceCdk}.Cfn${resourceClassName}Props> = crpm.load(\`\${__dirname}/${outputDirectoryToAppRootRelPath}/${propsPath}\`);`;
+                const insertResourceStmt = `const ${varName} = new ${serviceCdk}.Cfn${resourceClassName}(this, '${resourceClassName}', ${varName}Props);`;
+                fileContents = fileContents.slice(0, constructorStmtEnd) +
+                  "\n\n" + ' '.repeat(startColumn) + insertPropsStmt +
+                  "\n" + ' '.repeat(startColumn) + insertResourceStmt +
+                  fileContents.slice(constructorStmtEnd, fileContents.length);
+                additionalModifyComment = `: Insert ${resourceClassName} at line ${lastStmt.loc.start.line + 2}, column ${startColumn}`;
+              }
+            }
+          }
         }
-      } else {
-        data('%s %s %s', colors.yellow('EXISTS'), templatePath, colors.cyan('(' + fs.statSync(templatePath).size + ' bytes)'));
       }
 
-      const propsPath = `${outputDirectory}/${stackPath}/props.yaml`;
-      if (!(await fs.pathExists(propsPath))) {
+      const propsAbsPath = `${appRootPath}/${propsPath}`;
+      if (!(await fs.pathExists(propsAbsPath))) {
         const props: any = await parseGeneratedCdkFile(serviceFormatted);
         try {
-          await fs.outputFile(propsPath, await outputYaml(props[resourcePropsInterfaceName]));
-          data('%s %s %s', colors.green('CREATE'), propsPath, colors.cyan('(' + fs.statSync(propsPath).size + ' bytes)'));
+          await fs.outputFile(propsAbsPath, await outputYaml(props[resourcePropsInterfaceName]));
+          data('%s %s %s', colors.green('CREATE'), propsAbsPath, colors.cyan('(' + fs.statSync(propsAbsPath).size + ' bytes)'));
         } catch (err) {
           error(err);
+          return 1; // exit code
         }
       } else {
-        data('%s %s %s', colors.yellow('EXISTS'), propsPath, colors.cyan('(' + fs.statSync(propsPath).size + ' bytes)'));
+        data('%s %s %s', colors.yellow('EXISTS'), propsAbsPath, colors.cyan('(' + fs.statSync(propsAbsPath).size + ' bytes)'));
+      }
+    }
+
+    const previousFileSize = fs.statSync(`${appRootPath}/${stackPath}`).size;
+    if (previousFileSize != fileContents.length) {
+      try {
+        await fs.outputFile(`${appRootPath}/${stackPath}`, fileContents);
+        data(
+          '%s %s %s',
+          colors.green('UPDATE'),
+          `${stackPath}${additionalModifyComment}`,
+          colors.cyan(`(${previousFileSize} -> ${fileContents.length} bytes)`)
+        );
+      } catch (err) {
+        error(err);
+        return 1; // exit code
       }
     }
 
     return undefined; // nothing to print
   }
 
-  async function cliList(klawPath: string, available: boolean) {
-    if (available) {
-      printAll(
-        yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'), {
-          schema: yaml.JSON_SCHEMA
-        })
-      );
-    } else {
-      // Make the default path the current directory if it wasn't specified
-      if (klawPath == null) {
-        klawPath = '.';
-      }
-
-      const templates: any = await new Promise((resolve, reject) => {
-        const extensionFilter = through2
-          .obj(function (item, _enc, next) {
-            if (item.path.match(/(.*)\/template.ts$/) && !item.path.match(/(.*)\/node_modules\/(.*)/)) {
-              this.push(item);
-            }
-            next();
-          })
-          .on('error', (err: string) => reject(err));
-
-        const items: string[] = [];
-        klaw(klawPath, { preserveSymlinks: true })
-          .on('error', err => extensionFilter.emit('error', err)) // forward the error on
-          .pipe(extensionFilter)
-          .on('data', item => items.push((item as any).path))
-          .on('end', () => resolve(items));
-      });
-
-      for (const key of Object.keys(templates)) {
-        data(path.dirname(path.relative(klawPath, templates[key])));
-      }
-    }
+  async function cliList() {
+    printAll(
+      yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
+        schema: yaml.JSON_SCHEMA
+      })
+    );
 
     return 0; // exit code
 
@@ -350,87 +403,6 @@ async function initCommandLine() {
         }
       }
     }
-  }
-
-  async function cliSynthesize(stacks: string[]): Promise<void> {
-    for (const stack of stacks) {
-      const templateDirName = process.cwd() + '/' + stack;
-      let stackIdentifier = await getStackIdentifier();
-      const previousTemplateSize = await getStackTemplateSize(stackIdentifier);
-
-      const execFile = util.promisify(child_process.execFile);
-      try {
-        const { stdout, stderr } = await execFile('cdk', [
-          '--app',
-          'node ' + __dirname + '/cdk-app.js ' + process.cwd() + '/' + stack,
-          '--verbose=' + isVerbose.toString(),
-          '--version-reporting=false',
-          '--path-metadata=false',
-          '--asset-metadata=false',
-          '--staging=false',
-          '--no-color=true',
-          'synth',
-          '--output=' + templateDirName
-        ]);
-
-        if (stdout) {
-          debug('%s %s', colors.green('CDK'), stdout.trim());
-        }
-        if (stderr) {
-          debug('%s %s', colors.red('CDK'), stderr.trim());
-        }
-      } catch (err) {
-        throw err;
-      }
-
-      stackIdentifier = await getStackIdentifier(); // in case it changed
-      if (stackIdentifier) {
-        // Create a stack.template.json symlink for backwards compatibility
-        const symlinkPath = `${templateDirName}/stack.template.json`;
-        const symlinkPathExists = await fs.pathExists(symlinkPath);
-        if (symlinkPathExists) {
-          await fs.unlink(symlinkPath);
-        }
-        await fs.symlink(`${templateDirName}/${stackIdentifier}.template.json`, symlinkPath, 'file');
-      }
-
-      const templateSize = await getStackTemplateSize(stackIdentifier);
-      if (previousTemplateSize) {
-        const previousTemplateSizeMessage = previousTemplateSize !== templateSize ? previousTemplateSize + ' -> ' : '';
-        data(
-          '%s %s %s',
-          colors.yellow('UPDATE'),
-          `./${stack}/stack.template.json`,
-          colors.cyan(`(${previousTemplateSizeMessage}${templateSize} bytes)`)
-        );
-      } else {
-        data('%s %s %s', colors.green('CREATE'), `./${stack}/stack.template.json`, colors.cyan(`(${templateSize} bytes)`));
-      }
-
-      async function getStackIdentifier(): Promise<string> {
-        const manifestPath = `${templateDirName}/manifest.json`;
-        const manifestPathExists = await fs.pathExists(manifestPath);
-        if (manifestPathExists) {
-          const manifest = require(manifestPath);
-          if (manifest.artifacts) {
-            const artifacts = Object.keys(manifest.artifacts);
-            const firstMatch = artifacts.find(key => /^stack/.test(key));
-            if (firstMatch) {
-              return firstMatch;
-            }
-          }
-        }
-        return '';
-      }
-
-      async function getStackTemplateSize(stackIdentifier: string): Promise<number> {
-        const templatePath = `${templateDirName}/${stackIdentifier}.template.json`;
-        const templatePathExists = await fs.pathExists(templatePath);
-        return templatePathExists ? fs.statSync(templatePath).size : 0;
-      }
-    }
-
-    return undefined; // nothing to print
   }
 }
 
