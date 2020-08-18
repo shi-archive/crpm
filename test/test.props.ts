@@ -4,7 +4,7 @@ import 'mocha';
 
 import props = require('../lib/props');
 
-describe('loadProps function', () => {
+describe('load function', () => {
   it('should return empty object for fixtures/empty.props.yaml', () => {
     const result = props.load(`${__dirname}/fixtures/empty.props.yaml`);
     expect(result).to.be.an('object');

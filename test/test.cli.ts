@@ -18,21 +18,14 @@ describe('crpm CLI', () => {
     const result = spawnSync('node', [__dirname + '/../bin/cli.js', 'ls']);
     const stdout = result.output[1].toString();
     const stderr = result.output[2].toString();
-    expect(stdout).to.contain('examples/ec2-instance/infra/compute/ec2/instance\n');
-    expect(stderr).to.equal('');
-  });
-
-  it('crpm ls -a', () => {
-    const result = spawnSync('node', [__dirname + '/../bin/cli.js', 'ls', '-a']);
-    const stdout = result.output[1].toString();
-    const stderr = result.output[2].toString();
     const numMatches = (stdout.match(/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+/g) || []).length;
     expect(numMatches).to.be.at.least(546);
     expect(stdout).to.contain('compute/ec2/instance');
     expect(stderr).to.equal('');
   });
 
-  it('crpm i -o .test compute/ec2/instance', () => {
+  it('crpm i compute/ec2/instance', () => {
+    // TODO: Create .test and init CDK app inside it, then continue
     const result = spawnSync('node', [__dirname + '/../bin/cli.js', 'i', '-o', '.test', 'compute/ec2/instance']);
     const stdout = result.output[1].toString();
     const stderr = result.output[2].toString();
@@ -63,14 +56,6 @@ describe('crpm CLI', () => {
   it('cd .test; npm run build', () => {
     const result = spawnSync('npm', ['run', 'build'], { cwd: '.test' });
     const stderr = result.output[2].toString();
-    expect(stderr).to.equal('');
-  });
-
-  it('crpm synth .test/compute/ec2/instance', () => {
-    const result = spawnSync('node', [__dirname + '/../bin/cli.js', 'synth', '.test/compute/ec2/instance']);
-    const stdout = result.output[1].toString();
-    const stderr = result.output[2].toString();
-    expect(stdout).to.contain('./.test/compute/ec2/instance/stack.template.json');
     expect(stderr).to.equal('');
   });
 });
