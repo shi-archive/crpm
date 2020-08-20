@@ -192,19 +192,19 @@ export async function outputYaml(props: any, parentComment?: string, indentation
   return output.replace(/[\n]{2,}$/, '\n');
 }
 
-export function load(filename: string): any {
+export function load<T>(filename: string): Writeable<T> {
   try {
     const props = yaml.safeLoad(fs.readFileSync(filename, 'utf8'), {
       schema: yaml.JSON_SCHEMA
     });
     if (props) {
-      return props;
+      return props as Writeable<T>;
     }
   } catch (err) {
     throw err;
   }
 
-  return {};
+  return {} as Writeable<T>;
 }
 
 // This is needed to wrap Cfn*Props since the interface properties are readonly

@@ -1,16 +1,20 @@
 {
   "name": "crpm",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Command line tool for importing resource properties templates into AWS CDK applications",
   "keywords": [
     "cloud resource property manager"
   ],
-  "homepage": "https://github.com/shi/crpm",
+  "homepage": "https://shi.github.io/crpm",
   "license": "Apache-2.0",
   "author": {
     "name": "SHI International Corp.",
     "url": "https://www.shi.com",
     "organization": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shi/crpm.git"
   },
   "files": [
     "bin/*.d.ts",

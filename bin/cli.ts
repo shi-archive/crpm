@@ -338,7 +338,7 @@ async function initCommandLine() {
                   varName = camelCaseResourceClassName;
                 }
                 const outputDirectoryToAppRootRelPath = path.relative(path.dirname(stackPath), `${appRootPath}/`);
-                const insertPropsStmt = `const ${varName}Props: crpm.Writeable<${serviceCdk}.Cfn${resourceClassName}Props> = crpm.load(\`\${__dirname}/${outputDirectoryToAppRootRelPath}/${propsPath}\`);`;
+                const insertPropsStmt = `const ${varName}Props = crpm.load<${serviceCdk}.Cfn${resourceClassName}Props>(\`\${__dirname}/${outputDirectoryToAppRootRelPath}/${propsPath}\`);`;
                 const insertResourceStmt = `const ${varName} = new ${serviceCdk}.Cfn${resourceClassName}(this, '${resourceClassName}', ${varName}Props);`;
                 fileContents = fileContents.slice(0, constructorStmtEnd) +
                   "\n\n" + ' '.repeat(startColumn) + insertPropsStmt +
