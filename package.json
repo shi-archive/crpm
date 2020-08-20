@@ -36,10 +36,6 @@
   "bin": {
     "crpm": "bin/crpm"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shi/crpm.git"
-  },
   "scripts": {
     "pretty-check": "prettier --check **/*.ts",
     "pretty": "prettier --write **/*.ts",
