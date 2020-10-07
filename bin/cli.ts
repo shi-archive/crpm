@@ -184,19 +184,44 @@ async function initCommandLine() {
       stackName = stackNames[0];
     } else {
       if (!stackName || !stackNames.includes(stackName)) {
-        error('Multiple stacks found.  Specify a stack name using the -s option.  For help, please run: crpm i -h');
+        error('Multiple stacks found.  Specify a stack name using the -s option.  To see list of stack names, please run: cdk ls.  For help, please run: crpm i -h');
         return 1; // exit code
       }
     }
 
-    // Identify path to stack file
-    let stackPath = '';
+    // Identify class name for stack
     const typeScriptFiles = glob.sync('[!test]*/**[!.d].ts', {
       cwd: appRootPath,
       silent: true,
       nodir: true
     });
-    const stackStmtRegex = new RegExp('class\\s+' + stackName, 's');
+    let className = '';
+    // Find ClassName by id in: new ClassName(app, 'id
+    const classStmtRegex = new RegExp('new\\s+(\\w+)\\s*\\(\\s*\\w+\\s*,\\s*(\'|")' + stackName + '(\'|")');
+    let classNames = await Promise.all(typeScriptFiles.map(async function(filename) {
+      return fs.readFile(filename, 'utf8').then(function(content) {
+        const match = classStmtRegex.exec(content);
+        if (match) {
+          return match[1];
+        }
+        return undefined;
+      });
+    })).catch(debug);
+    classNames = classNames ? classNames.filter(f => f) : [];
+    if (classNames.length == 1) {
+      className = classNames[0];
+    } else if (classNames.length > 1) {
+      debug(classNames.join(', ') + ` have ID ${stackName}`);
+    }
+    if (!className) {
+      error(`Unable to find class name for ID ${stackName}`);
+      return 1; // exit code
+    }
+    debug(`Found class name ${className} for stack ${stackName}`);
+    
+    // Identify path to stack file by class name
+    let stackPath = '';
+    const stackStmtRegex = new RegExp('class\\s+' + className + '\\s+');
     let stackFiles = await Promise.all(typeScriptFiles.map(async function(filename) {
       return fs.readFile(filename, 'utf8').then(function(content) {
         if (stackStmtRegex.exec(content)) {
@@ -209,12 +234,13 @@ async function initCommandLine() {
     if (stackFiles.length == 1) {
       stackPath = stackFiles[0];
     } else if (stackFiles.length > 1) {
-      debug(stackFiles.join(', ') + ` contain ${stackName}`);
+      debug(stackFiles.join(', ') + ` contain class ${className}`);
     }
     if (!stackPath) {
-      error(`Unable to locate file containing ${stackName}`);
+      error(`Unable to locate file containing class ${className}`);
       return 1; // exit code
     }
+    debug(`Found class ${className} in ${stackPath}`);
 
     // Install crpm dependency
     const appPackages = require(`${appRootPath}/package.json`);
