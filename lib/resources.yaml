@@ -52,6 +52,9 @@ application-integration:
     broker: CfnBrokerProps
     configuration: CfnConfigurationProps
     configuration-association: CfnConfigurationAssociationProps
+  appflow:
+    connector-profile: CfnConnectorProfileProps
+    flow: CfnFlowProps
   event-schemas:
     discoverer: CfnDiscovererProps
     registry: CfnRegistryProps
@@ -79,11 +82,12 @@ compute:
   dlm: 
     lifecycle-policy: CfnLifecyclePolicyProps
   ec2:
+    capacity-reservation: CfnCapacityReservationProps
+    carrier-gateway: CfnCarrierGatewayProps
     client-vpn-authorization-rule: CfnClientVpnAuthorizationRuleProps
     client-vpn-endpoint: CfnClientVpnEndpointProps
     client-vpn-route: CfnClientVpnRouteProps
     client-vpn-target-network-association: CfnClientVpnTargetNetworkAssociationProps
-    capacity-reservation: CfnCapacityReservationProps
     customer-gateway: CfnCustomerGatewayProps
     dhcp-options: CfnDHCPOptionsProps
     ec2-fleet: CfnEC2FleetProps
@@ -152,6 +156,7 @@ compute:
     task-set: CfnTaskSetProps
   eks:
     cluster: CfnClusterProps
+    fargate-profile: CfnFargateProfileProps
     nodegroup: CfnNodegroupProps
   elastic-beanstalk:
     application: CfnApplicationProps
@@ -196,6 +201,7 @@ compute:
     function: CfnFunctionProps
     layer-version: CfnLayerVersionProps
     simple-table: CfnSimpleTableProps
+    state-machine: CfnStateMachineProps
 cost-management:
   budgets: 
     budget: CfnBudgetProps
@@ -317,12 +323,14 @@ end-user-computing:
     stack-user-association: CfnStackUserAssociationProps
     user: CfnUserProps
   workspaces:
+    connection-alias: CfnConnectionAliasProps
     workspace: CfnWorkspaceProps
 game-development:
   gamelift:
     alias: CfnAliasProps
     build: CfnBuildProps
     fleet: CfnFleetProps
+    game-server-group: CfnGameServerGroupProps
     game-session-queue: CfnGameSessionQueueProps
     matchmaking-configuration: CfnMatchmakingConfigurationProps
     matchmaking-rule-set: CfnMatchmakingRuleSetProps
@@ -346,6 +354,7 @@ iot:
     subscription-definition: CfnSubscriptionDefinitionProps
     subscription-definition-version: CfnSubscriptionDefinitionVersionProps
   iot:
+    authorizer: CfnAuthorizerProps
     certificate: CfnCertificateProps
     policy: CfnPolicyProps
     policy-principal-attachment: CfnPolicyPrincipalAttachmentProps
@@ -378,6 +387,8 @@ management-governance:
   application-auto-scaling: 
     scalable-target: CfnScalableTargetProps
     scaling-policy: CfnScalingPolicyProps
+  application-insights:
+    application: CfnApplicationProps
   auto-scaling:
     auto-scaling-group: CfnAutoScalingGroupProps
     launch-configuration: CfnLaunchConfigurationProps
@@ -392,6 +403,7 @@ management-governance:
     custom-resource: CfnCustomResourceProps
     macro: CfnMacroProps
     stack: CfnStackProps
+    stack-set: CfnStackSetProps
     wait-condition: CfnWaitConditionProps
   cloudtrail:
     trail: CfnTrailProps
@@ -484,11 +496,18 @@ migration-transfer:
 ml:
   codeguru-profiler:
     profiling-group: CfnProfilingGroupProps
+  codeguru-reviewer:
+    repository-association: CfnRepositoryAssociationProps
+  kendra:
+    data-source: CfnDataSourceProps
+    faq: CfnFaqProps
+    index: CfnIndexProps
   sagemaker:
     code-repository: CfnCodeRepositoryProps
     endpoint: CfnEndpointProps
     endpoint-config: CfnEndpointConfigProps
     model: CfnModelProps
+    monitoring-schedule: CfnMonitoringScheduleProps
     notebook-instance: CfnNotebookInstanceProps
     notebook-instance-lifecycle-config: CfnNotebookInstanceLifecycleConfigProps
     workteam-props: CfnWorkteamProps
@@ -528,6 +547,7 @@ networking-content-delivery:
     vpc-link: CfnVpcLinkProps
   api-gateway-v2:
     api: CfnApiProps
+    api-gateway-managed-overrides: CfnApiGatewayManagedOverridesProps
     api-mapping: CfnApiMappingProps
     authorizer: CfnAuthorizerProps
     deployment: CfnDeploymentProps
@@ -538,15 +558,21 @@ networking-content-delivery:
     route: CfnRouteProps
     route-response: CfnRouteResponseProps
     stage: CfnStageProps
+    vpc-link: CfnVpcLinkProps
   app-mesh:
+    gateway-route: CfnGatewayRouteProps
     mesh: CfnMeshProps
     route: CfnRouteProps
+    virtual-gateway: CfnVirtualGatewayProps
     virtual-node: CfnVirtualNodeProps
     virtual-router: CfnVirtualRouterProps
     virtual-service: CfnVirtualServiceProps
   cloudfront:
+    cache-policy: CfnCachePolicyProps
     cloudfront-origin-access-identity: CfnCloudFrontOriginAccessIdentityProps
     distribution: CfnDistributionProps
+    origin-request-policy: CfnOriginRequestPolicyProps
+    realtime-log-config: CfnRealtimeLogConfigProps
     streaming-distribution: CfnStreamingDistributionProps
   global-accelerator:
     accelerator: CfnAcceleratorProps
@@ -559,6 +585,8 @@ networking-content-delivery:
     record-set-group: CfnRecordSetGroupProps
   route-53-resolver:
     resolver-endpoint: CfnResolverEndpointProps
+    resolver-query-logging-config-association: CfnResolverQueryLoggingConfigAssociationProps
+    resolver-query-logging-config: CfnResolverQueryLoggingConfigProps
     resolver-rule: CfnResolverRuleProps
     resolver-rule-association: CfnResolverRuleAssociationProps
   service-discovery:
@@ -642,6 +670,9 @@ security-identity-compliance:
     secret-target-attachment: CfnSecretTargetAttachmentProps
   security-hub:
     hub: CfnHubProps
+  sso:
+    assignment: CfnAssignmentProps
+    permission-set: CfnPermissionSetProps
   waf:
     byte-match-set: CfnByteMatchSetProps
     ip-set: CfnIPSetProps

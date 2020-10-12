@@ -114,7 +114,7 @@ async function initCommandLine() {
     switch (command) {
       case 'import':
       case 'i':
-        return await cliImport(args.resources, args.stack, args.rename);
+        return await cliImport(args.RESOURCES, args.stack, args.rename);
 
       case 'list':
       case 'ls':

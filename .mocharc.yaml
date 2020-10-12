@@ -1,2 +1,2 @@
-timeout: 50000
+timeout: 100000
 throw-deprecation: true

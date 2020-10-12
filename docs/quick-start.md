@@ -21,7 +21,7 @@ The easiest and recommended way to get started, would be to launch a [Cloud9](ht
 2.  Install [AWS CDK](https://aws.amazon.com/cdk) (**cdk**), Cloud Resource Property Manager (**crpm**), and TypeScript globally.
 
     ```bash
-    npm install -g aws-cdk@1.57.0 crpm@2.0.0 typescript
+    npm install -g aws-cdk@1.67.0 crpm typescript
     ```
 
 ### Quick Tutorial
