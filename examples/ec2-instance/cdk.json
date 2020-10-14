@@ -1,0 +1,13 @@
+{
+  "app": "npx ts-node bin/ec2-instance.ts",
+  "context": {
+    "@aws-cdk/core:enableStackNameDuplicates": "true",
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true",
+    "APP_NAME": "example-ec2-instance",
+    "VPC_ID": "vpc-12345678",
+    "SUBNET_ID": "subnet-12345678",
+    "IMAGE_ID": "ami-0947d2ba12ee1ff75",
+    "KEY_NAME": "skeleton"
+  }
+}
