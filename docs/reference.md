@@ -21,7 +21,7 @@ crpm i RESOURCES OPTIONS
 RESOURCES is one or more resource paths.  To see list of available resource paths, run:
 
 ```bash
-crpm ls
+crpm  ls
 ```
 
 OPTIONS:
