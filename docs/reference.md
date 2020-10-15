@@ -18,13 +18,21 @@ Imports resource property files and inserts code into stack files.
 crpm i RESOURCES OPTIONS
 ```
 
-RESOURCES is one or more resource paths.  To see list of available resource paths, run `crpm ls`.
+RESOURCES is one or more resource paths.  To see list of available resource paths, run:
+
+```bash
+crpm ls
+```
 
 OPTIONS:
 
  *  *\-\-stack, -s*
     
-    Name of stack to modify.  To see list of available stacks, run `cdk ls`
+    Name of stack to modify.  To see list of available stacks, run:
+    
+    ```bash
+    cdk ls
+    ```
 
  *  *\-\-rename, -r*
     
