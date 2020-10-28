@@ -28,15 +28,21 @@ are meant to be modified to fit your needs.
     cd ec2-instance
     ```
 
-3.  Open the **cdk.json** file for editing, change the values for all of the custom context variables to fit your own needs, and save the file.
+3.  Install the CDK application.
 
-4.  Deploy the CloudFormation stack with the instance and related AWS resources.  **This will take some time to run.**
+    ```bash
+    npm i
+    ```
+
+4.  Open the **cdk.json** file for editing, change the values for all of the custom context variables to fit your own needs, and save the file.
+
+5.  Deploy the CloudFormation stack with the instance and related AWS resources.  **This will take some time to run.**
 
     ```bash
     cdk deploy
     ```
 
-5.  If you do not need the cloud resources any longer, destroy them when you are done with them.
+6.  If you do not need the cloud resources any longer, destroy them when you are done with them.
 
     ```bash
     cdk destroy

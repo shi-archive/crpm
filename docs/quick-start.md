@@ -16,7 +16,7 @@ The easiest and recommended way to get started, would be to launch a [Cloud9](ht
     node -v
     ```
     
-    You must have **v10.3.0** or greater installed.
+    You should have **v10.3.0** or greater installed.
 
 2.  Install [AWS CDK](https://aws.amazon.com/cdk) (**cdk**), Cloud Resource Property Manager (**crpm**), and TypeScript globally.
 
