@@ -247,7 +247,6 @@ async function initCommandLine() {
     if (!('crpm' in appPackages['dependencies'])) {
       data('%s Adding crpm to package.json and installing...', colors.green('NPM'));
       const crpmPackages = require(__dirname + '/../package.json');
-      const execFile = util.promisify(child_process.execFile);
       const { stdout, stderr } = await execFile('npm', ['--silent', 'install', `crpm@${crpmPackages.version}`, '--prefix', appRootPath]);
       if (stdout) {
         data('%s %s', colors.green('NPM'), stdout.trim());
@@ -300,6 +299,18 @@ async function initCommandLine() {
       const serviceCdk = serviceOverrides.hasOwnProperty(serviceFormatted) ? serviceOverrides[serviceFormatted] : serviceFormatted;
       const moduleName = '@aws-cdk/aws-' + serviceCdk;
       const resourcePropsInterfaceName = resources[category][service][resource];
+      
+      // Install module dependency
+      if (!(moduleName in appPackages['dependencies'])) {
+        data('%s Adding %s to package.json and installing...', colors.green('NPM'), moduleName);
+        const { stdout, stderr } = await execFile('npm', ['--silent', 'install', `${moduleName}@${appPackages['dependencies']['@aws-cdk/core']}`, '--prefix', appRootPath]);
+        if (stdout) {
+          data('%s %s', colors.green('NPM'), stdout.trim());
+        }
+        if (stderr) {
+          data('%s %s', colors.magenta('NPM'), stderr.trim());
+        }
+      }
 
       // See if a specific service needs to be imported
       const serviceImportStmtRegex = new RegExp('import(?:.*)' + serviceCdk + '(?:.*)' + moduleName + '(?:[\'"\\s]*);?', 'gs');
