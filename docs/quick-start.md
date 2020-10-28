@@ -1,7 +1,7 @@
 ---
 title: Quick Start
 heading: Quick Start
-description: Install cdk and crpm, and create an AWS CloudFormation template.
+description: Install cdk and crpm, and deploy an AWS CloudFormation stack.
 ---
 ### Introduction
 
