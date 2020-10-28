@@ -1,14 +1,12 @@
 ---
 title: AWS Resource Properties
-heading: AWS Resource Properties Template
+heading: AWS Resource Property Template
 ---
-A resource properties template is a YAML file that contains all possible properties,
+A resource property template is a YAML file that contains all possible properties,
 with optional properties commented out.  You simply assign values to required properties, and uncomment
 and assign values to any other properties that you care about.  Property types and documentation links
-are included to make your life easier.  No more cutting and pasting from various pages of documentation
-to piece together a CloudFormation template!  You can synthesize a CloudFormation template from a
-properties file with no coding necessary.  You can also override properties in code, in an
-associated **template.ts** CDK stack file.  Create tags with a for loop in [TypeScript](https://www.typescriptlang.org)?  Yes please!
+are included to make your life easier.  Where YAML really shines, is **property assignment**.  So, keep what's
+good about YAML in YAML and keep the logic in CDK code.  You can override properties in code too.
 
 ### Example: compute/ec2/security-group/props.yaml
 
