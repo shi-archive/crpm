@@ -287,12 +287,19 @@ db:
     db-security-group-ingress: CfnDBSecurityGroupIngressProps
     db-subnet-group: CfnDBSubnetGroupProps
     event-subscription: CfnEventSubscriptionProps
+    global-cluster: CfnGlobalClusterProps
     option-group: CfnOptionGroupProps
   sdb:
     domain: CfnDomainProps
+  timestream:
+    database: CfnDatabaseProps
+    table: CfnTableProps
 developer-tools:
   cloud9:
     environment-ec2: CfnEnvironmentEC2Props
+  codeartifact:
+    domain: CfnDomainProps
+    repository: CfnRepositoryProps
   codebuild:
     project: CfnProjectProps
     report-group: CfnReportGroupProps
@@ -356,6 +363,7 @@ iot:
   iot:
     authorizer: CfnAuthorizerProps
     certificate: CfnCertificateProps
+    domain-configuration: CfnDomainConfigurationProps
     policy: CfnPolicyProps
     policy-principal-attachment: CfnPolicyPrincipalAttachmentProps
     provisioning-template: CfnProvisioningTemplateProps
@@ -374,6 +382,10 @@ iot:
   iot-events:
     detector-model: CfnDetectorModelProps
     input: CfnInputProps
+  iot-sitewise:
+    asset: CfnAssetProps
+    asset-model: CfnAssetModelProps
+    gateway: CfnGatewayProps
   iot-things-graph:
     flow-template: CfnFlowTemplateProps
 management-governance:
@@ -413,6 +425,7 @@ management-governance:
     composite-alarm: CfnCompositeAlarmProps
     dashboard: CfnDashboardProps
     insight-rule: CfnInsightRuleProps
+    metric-stream: CfnMetricStreamProps
   config:
     aggregation-authorization: CfnAggregationAuthorizationProps
     config-rule: CfnConfigRuleProps
@@ -424,6 +437,7 @@ management-governance:
     organization-conformance-pack: CfnOrganizationConformancePackProps
     remediation-configuration: CfnRemediationConfigurationProps
   events:
+    archive: CfnArchiveProps
     event-bus: CfnEventBusProps
     event-bus-policy: CfnEventBusPolicyProps
     rule: CfnRuleProps
@@ -472,6 +486,10 @@ management-governance:
   synthetics:
     canary: CfnCanaryProps
 media-services:
+  ivs:
+    channel: CfnChannelProps
+    playback-key-pair: CfnPlaybackKeyPairProps
+    stream-key: CfnStreamKeyProps
   media-convert:
     job-template: CfnJobTemplateProps
     preset: CfnPresetProps
@@ -480,6 +498,12 @@ media-services:
     channel: CfnChannelProps
     input: CfnInputProps
     input-security-group: CfnInputSecurityGroupProps
+  media-package:
+    asset: CfnAssetProps
+    channel: CfnChannelProps
+    origin-endpoint: CfnOriginEndpointProps
+    packaging-configuration: CfnPackagingConfigurationProps
+    packaging-group: CfnPackagingGroupProps
   media-store:
     container: CfnContainerProps
 migration-transfer:

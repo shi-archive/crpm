@@ -31,7 +31,7 @@ describe('crpm CLI', () => {
     const stderr = result.output[2].toString();
     expect(stderr).to.contain('All done!');
   });
-  
+
   it('npm run test', () => {
     const result = spawnSync('npm', ['run', 'test'], { cwd: '.test/app' });
     const stderr = result.output[2].toString();
@@ -79,7 +79,7 @@ describe('crpm CLI', () => {
     const stderr = result.output[2].toString();
     expect(stderr).to.equal('');
   });
-  
+
   it('cdk synth', () => {
     const result = spawnSync('cdk', ['synth'], { cwd: '.test/app' });
     const stdout = result.output[1].toString();

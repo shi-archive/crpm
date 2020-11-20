@@ -52,15 +52,7 @@ async function parseCommandLineArguments() {
           ].join('\n')
         )
     )
-    .command(['list', 'ls'], 'Lists resource paths available to import', yargs =>
-      yargs
-        .epilogue(
-          [
-            'Example:',
-            '  crpm ls'
-          ].join('\n')
-        )
-    )
+    .command(['list', 'ls'], 'Lists resource paths available to import', yargs => yargs.epilogue(['Example:', '  crpm ls'].join('\n')))
     .version()
     .demandCommand(1, 'Please specify a command.')
     .help()
@@ -138,28 +130,28 @@ async function initCommandLine() {
     }
 
     // Crawl up to the nearest directory containing package.json and assume that it is a CDK app root directory
-    const appRootPath = await findup(async directory => {
-  		const inApp = await findup.exists(path.join(directory, 'package.json'));
-  		return inApp && directory;
-  	}, {
-  	  cwd: '.',
-  	  type: 'directory'
-  	});
-  	if (appRootPath == null) {
-  	  error('You can only import inside a CDK app directory.  To create one, please run: cdk init app --language typescript');
+    const appRootPath = await findup(
+      async directory => {
+        const inApp = await findup.exists(path.join(directory, 'package.json'));
+        return inApp && directory;
+      },
+      {
+        cwd: '.',
+        type: 'directory'
+      }
+    );
+    if (appRootPath == null) {
+      error('You can only import inside a CDK app directory.  To create one, please run: cdk init app --language typescript');
       return 1; // exit code
-  	}
+    }
 
     // Get list of stack names from CDK
     let stackNames = [];
     const execFile = util.promisify(child_process.execFile);
     try {
-      const { stdout, stderr } = await execFile('cdk', [
-        '--verbose=' + isVerbose.toString(),
-        'ls'
-      ]);
+      const { stdout, stderr } = await execFile('cdk', ['--verbose=' + isVerbose.toString(), 'ls']);
       if (stdout) {
-        stackNames = stdout.split("\n").filter(Boolean);
+        stackNames = stdout.split('\n').filter(Boolean);
         debug('%s %s', colors.green('CDK'), stdout.trim());
       }
       if (stderr) {
@@ -173,10 +165,13 @@ async function initCommandLine() {
     }
 
     // Narrow down to just one stack name
-    if (stackNames.length == 0) {
-      error((stackName ? `Stack ${stackName} not` : 'No stack') + ' found.  CDK app directory must contain at least one stack.  To see list of stack names, please run: cdk ls');
+    if (stackNames.length === 0) {
+      error(
+        (stackName ? `Stack ${stackName} not` : 'No stack') +
+          ' found.  CDK app directory must contain at least one stack.  To see list of stack names, please run: cdk ls'
+      );
       return 1; // exit code
-    } else if (stackNames.length == 1) {
+    } else if (stackNames.length === 1) {
       if (stackName && stackName !== stackNames[0]) {
         error(`Stack ${stackName} not found.  Did you mean ${stackNames[0]}?  To see list of stack names, please run: cdk ls`);
         return 1; // exit code
@@ -184,7 +179,9 @@ async function initCommandLine() {
       stackName = stackNames[0];
     } else {
       if (!stackName || !stackNames.includes(stackName)) {
-        error('Multiple stacks found.  Specify a stack name using the -s option.  To see list of stack names, please run: cdk ls.  For help, please run: crpm i -h');
+        error(
+          'Multiple stacks found.  Specify a stack name using the -s option.  To see list of stack names, please run: cdk ls.  For help, please run: crpm i -h'
+        );
         return 1; // exit code
       }
     }
@@ -198,17 +195,19 @@ async function initCommandLine() {
     let className = '';
     // Find ClassName by id in: new ClassName(app, 'id
     const classStmtRegex = new RegExp('new\\s+(\\w+)\\s*\\(\\s*\\w+\\s*,\\s*(\'|")' + stackName + '(\'|")');
-    let classNames = await Promise.all(typeScriptFiles.map(async function(filename) {
-      return fs.readFile(filename, 'utf8').then(function(content) {
-        const match = classStmtRegex.exec(content);
-        if (match) {
-          return match[1];
-        }
-        return undefined;
-      });
-    })).catch(debug);
+    let classNames = await Promise.all(
+      typeScriptFiles.map(async function (filename) {
+        return fs.readFile(filename, 'utf8').then(function (content) {
+          const match = classStmtRegex.exec(content);
+          if (match) {
+            return match[1];
+          }
+          return undefined;
+        });
+      })
+    ).catch(debug);
     classNames = classNames ? classNames.filter(f => f) : [];
-    if (classNames.length == 1) {
+    if (classNames.length === 1) {
       className = classNames[0];
     } else if (classNames.length > 1) {
       debug(classNames.join(', ') + ` have ID ${stackName}`);
@@ -218,20 +217,22 @@ async function initCommandLine() {
       return 1; // exit code
     }
     debug(`Found class name ${className} for stack ${stackName}`);
-    
+
     // Identify path to stack file by class name
     let stackPath = '';
     const stackStmtRegex = new RegExp('class\\s+' + className + '\\s+');
-    let stackFiles = await Promise.all(typeScriptFiles.map(async function(filename) {
-      return fs.readFile(filename, 'utf8').then(function(content) {
-        if (stackStmtRegex.exec(content)) {
-          return filename;
-        }
-        return undefined;
-      });
-    })).catch(debug);
+    let stackFiles = await Promise.all(
+      typeScriptFiles.map(async function (filename) {
+        return fs.readFile(filename, 'utf8').then(function (content) {
+          if (stackStmtRegex.exec(content)) {
+            return filename;
+          }
+          return undefined;
+        });
+      })
+    ).catch(debug);
     stackFiles = stackFiles ? stackFiles.filter(f => f) : [];
-    if (stackFiles.length == 1) {
+    if (stackFiles.length === 1) {
       stackPath = stackFiles[0];
     } else if (stackFiles.length > 1) {
       debug(stackFiles.join(', ') + ` contain class ${className}`);
@@ -270,7 +271,8 @@ async function initCommandLine() {
       const insertContents = "\nimport * as crpm from 'crpm';";
       const cdkImportStmtRegex = /import.*@aws-cdk\/core['"\s]*;/gs;
       if (cdkImportStmtRegex.exec(fileContents)) {
-        fileContents = fileContents.slice(0, cdkImportStmtRegex.lastIndex) +
+        fileContents =
+          fileContents.slice(0, cdkImportStmtRegex.lastIndex) +
           insertContents +
           fileContents.slice(cdkImportStmtRegex.lastIndex, fileContents.length);
       } else {
@@ -299,11 +301,17 @@ async function initCommandLine() {
       const serviceCdk = serviceOverrides.hasOwnProperty(serviceFormatted) ? serviceOverrides[serviceFormatted] : serviceFormatted;
       const moduleName = '@aws-cdk/aws-' + serviceCdk;
       const resourcePropsInterfaceName = resources[category][service][resource];
-      
+
       // Install module dependency
       if (!(moduleName in appPackages['dependencies'])) {
         data('%s Adding %s to package.json and installing...', colors.green('NPM'), moduleName);
-        const { stdout, stderr } = await execFile('npm', ['--silent', 'install', `${moduleName}@${appPackages['dependencies']['@aws-cdk/core']}`, '--prefix', appRootPath]);
+        const { stdout, stderr } = await execFile('npm', [
+          '--silent',
+          'install',
+          `${moduleName}@${appPackages['dependencies']['@aws-cdk/core']}`,
+          '--prefix',
+          appRootPath
+        ]);
         if (stdout) {
           data('%s %s', colors.green('NPM'), stdout.trim());
         }
@@ -324,7 +332,8 @@ async function initCommandLine() {
 
         const insertContents = `\nimport * as ${serviceCdk} from '${moduleName}';`;
         if (crpmImportStmtRegexLastIndex) {
-          fileContents = fileContents.slice(0, crpmImportStmtRegexLastIndex) +
+          fileContents =
+            fileContents.slice(0, crpmImportStmtRegexLastIndex) +
             insertContents +
             fileContents.slice(crpmImportStmtRegexLastIndex, fileContents.length);
         } else {
@@ -338,7 +347,7 @@ async function initCommandLine() {
       try {
         ast = parse(fileContents, {
           loc: true,
-          range: true,
+          range: true
         });
       } catch (err) {
         error(`${stackPath} could not be parsed.  Hint: ${err.message.trim()}`);
@@ -354,11 +363,7 @@ async function initCommandLine() {
             p1.declaration.superClass.property.name === 'Stack'
           ) {
             for (const p2 of p1.declaration.body.body) {
-              if (
-                p2.type === 'MethodDefinition' &&
-                p2.kind === 'constructor' &&
-                p2.value.type === 'FunctionExpression'
-              ) {
+              if (p2.type === 'MethodDefinition' && p2.kind === 'constructor' && p2.value.type === 'FunctionExpression') {
                 const lastStmt = p2.value.body.body[p2.value.body.body.length == 0 ? 0 : p2.value.body.body.length - 1];
                 const constructorStmtEnd = lastStmt.range[1];
                 const startColumn = lastStmt.loc.start.column;
@@ -377,9 +382,14 @@ async function initCommandLine() {
                 const outputDirectoryToAppRootRelPath = path.relative(path.dirname(stackPath), `${appRootPath}/`);
                 const insertPropsStmt = `const ${varName}Props = crpm.load<${serviceCdk}.Cfn${resourceClassName}Props>(\`\${__dirname}/${outputDirectoryToAppRootRelPath}/${propsPath}\`);`;
                 const insertResourceStmt = `const ${varName} = new ${serviceCdk}.Cfn${resourceClassName}(this, '${resourceClassName}', ${varName}Props);`;
-                fileContents = fileContents.slice(0, constructorStmtEnd) +
-                  "\n\n" + ' '.repeat(startColumn) + insertPropsStmt +
-                  "\n" + ' '.repeat(startColumn) + insertResourceStmt +
+                fileContents =
+                  fileContents.slice(0, constructorStmtEnd) +
+                  '\n\n' +
+                  ' '.repeat(startColumn) +
+                  insertPropsStmt +
+                  '\n' +
+                  ' '.repeat(startColumn) +
+                  insertResourceStmt +
                   fileContents.slice(constructorStmtEnd, fileContents.length);
                 additionalModifyComment = `: Insert ${resourceClassName} at line ${lastStmt.loc.start.line + 2}, column ${startColumn}`;
               }

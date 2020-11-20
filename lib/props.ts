@@ -9,7 +9,8 @@ export async function parseGeneratedCdkFile(serviceName: string): Promise<object
   props[cdkPropsKey] = await parse(__dirname + '/../node_modules/@aws-cdk/core/lib/cfn-tag.d.ts');
 
   const serviceOverrides = yaml.safeLoad(await fs.readFile(__dirname + '/service-overrides.yaml', 'utf-8'));
-  const moduleName = '@aws-cdk/aws-' + (serviceOverrides && serviceOverrides.hasOwnProperty(serviceName) ? serviceOverrides[serviceName] : serviceName);
+  const moduleName =
+    '@aws-cdk/aws-' + (serviceOverrides && serviceOverrides.hasOwnProperty(serviceName) ? serviceOverrides[serviceName] : serviceName);
   props = await parse(__dirname + '/../node_modules/' + moduleName + '/lib/' + serviceName + '.generated.d.ts');
   return JSON.parse(JSON.stringify(props));
 
