@@ -35,7 +35,7 @@ export class Ec2InstanceStack extends cdk.Stack {
       },
       {
         "key": "Application",
-        "value": this.node.tryGetContext('APP_NAME')
+        "value": `${this.node.tryGetContext('APP_NAME')}`
       }
     ];
     instanceProps.userData = cdk.Fn.base64(
