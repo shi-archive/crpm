@@ -76,6 +76,8 @@ async function initCommandLine() {
         const service = match[3];
         if (service.match(/-augmentations$/)) {
           continue;
+        } else if (service.match(/-canned-metrics$/)) {
+          continue;
         }
         try {
           const props = await parseGeneratedCdkFile(service);

@@ -102,7 +102,7 @@ async function initCommandLine() {
   const cmd = argv._[0];
   return await main(cmd, argv);
 
-  async function main(command: string, args: any): Promise<number | string | {} | void> {
+  async function main(command: string | number, args: any): Promise<number | string | {} | void> {
     switch (command) {
       case 'import':
       case 'i':

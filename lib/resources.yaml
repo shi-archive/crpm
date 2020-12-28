@@ -5,6 +5,12 @@ analytics:
     work-group: CfnWorkGroupProps
   data-pipeline:
     pipeline: CfnPipelineProps
+  databrew:
+    dataset: CfnDatasetProps
+    job: CfnJobProps
+    project: CfnProjectProps
+    recipe: CfnRecipeProps
+    schedule: CfnScheduleProps
   elasticsearch:
     domain: CfnDomainProps
   emr:
@@ -23,6 +29,10 @@ analytics:
     job: CfnJobProps
     ml-transform: CfnMLTransformProps
     partition: CfnPartitionProps
+    registry: CfnRegistryProps
+    schema: CfnSchemaProps
+    schema-version: CfnSchemaVersionProps
+    schema-version-metadata: CfnSchemaVersionMetadataProps
     security-configuration: CfnSecurityConfigurationProps
     table: CfnTableProps
     trigger: CfnTriggerProps
@@ -180,6 +190,7 @@ compute:
     infrastructure-configuration: CfnInfrastructureConfigurationProps
   lambda:
     alias: CfnAliasProps
+    code-signing-config: CfnCodeSigningConfigProps
     event-invoke-config: CfnEventInvokeConfigProps
     event-source-mapping: CfnEventSourceMappingProps
     function: CfnFunctionProps
@@ -370,6 +381,7 @@ iot:
     thing: CfnThingProps
     thing-principal-attachment: CfnThingPrincipalAttachmentProps
     topic-rule: CfnTopicRuleProps
+    topic-rule-destination: CfnTopicRuleDestinationProps
   iot-1-click:
     device: CfnDeviceProps
     placement: CfnPlacementProps
@@ -595,7 +607,9 @@ networking-content-delivery:
     cache-policy: CfnCachePolicyProps
     cloudfront-origin-access-identity: CfnCloudFrontOriginAccessIdentityProps
     distribution: CfnDistributionProps
+    key-group: CfnKeyGroupProps
     origin-request-policy: CfnOriginRequestPolicyProps
+    public-key: CfnPublicKeyProps
     realtime-log-config: CfnRealtimeLogConfigProps
     streaming-distribution: CfnStreamingDistributionProps
   global-accelerator:
@@ -685,6 +699,11 @@ security-identity-compliance:
     custom-data-identifier: CfnCustomDataIdentifierProps
     findings-filter: CfnFindingsFilterProps
     session: CfnSessionProps
+  network-firewall:
+    firewall: CfnFirewallProps
+    firewall-policy: CfnFirewallPolicyProps
+    logging-configuration: CfnLoggingConfigurationProps
+    rule-group: CfnRuleGroupProps
   ram:
     resource-share: CfnResourceShareProps
   secrets-manager:
@@ -694,6 +713,9 @@ security-identity-compliance:
     secret-target-attachment: CfnSecretTargetAttachmentProps
   security-hub:
     hub: CfnHubProps
+  signer:
+    profile-permission: CfnProfilePermissionProps
+    signing-profile: CfnSigningProfileProps
   sso:
     assignment: CfnAssignmentProps
     permission-set: CfnPermissionSetProps
@@ -738,3 +760,4 @@ storage:
     access-point: CfnAccessPointProps
     bucket: CfnBucketProps
     bucket-policy: CfnBucketPolicyProps
+    storage-lens: CfnStorageLensProps
