@@ -257,7 +257,7 @@ async function initCommandLine() {
       }
     }
 
-    const resources = yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
+    const resources = yaml.load(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
       schema: yaml.JSON_SCHEMA
     });
 
@@ -297,7 +297,7 @@ async function initCommandLine() {
       }
 
       const serviceFormatted = service.replace(/-/g, '');
-      const serviceOverrides = yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/service-overrides.yaml', 'utf8'));
+      const serviceOverrides = yaml.load(fs.readFileSync(__dirname + '/../lib/service-overrides.yaml', 'utf8'));
       const serviceCdk = serviceOverrides.hasOwnProperty(serviceFormatted) ? serviceOverrides[serviceFormatted] : serviceFormatted;
       const moduleName = '@aws-cdk/aws-' + serviceCdk;
       const resourcePropsInterfaceName = resources[category][service][resource];
@@ -434,7 +434,7 @@ async function initCommandLine() {
 
   async function cliList() {
     printAll(
-      yaml.safeLoad(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
+      yaml.load(fs.readFileSync(__dirname + '/../lib/resources.yaml', 'utf8'), {
         schema: yaml.JSON_SCHEMA
       })
     );

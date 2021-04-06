@@ -19,6 +19,10 @@ analytics:
     instance-group-config: CfnInstanceGroupConfigProps
     security-configuration: CfnSecurityConfigurationProps
     step: CfnStepProps
+    studio: CfnStudioProps
+    studio-session-mapping: CfnStudioSessionMappingProps
+  emrcontainers:
+    virtual-cluster: CfnVirtualClusterProps
   glue:
     classifier: CfnClassifierProps
     connection: CfnConnectionProps
@@ -57,6 +61,11 @@ analytics:
     resource: CfnResourceProps
   msk:
     cluster: CfnClusterProps
+  quicksight:
+    analysis: CfnAnalysisProps
+    dashboard: CfnDashboardProps
+    template: CfnTemplateProps
+    theme: CfnThemeProps
 application-integration:
   amazon-mq:
     broker: CfnBrokerProps
@@ -70,6 +79,8 @@ application-integration:
     registry: CfnRegistryProps
     registry-policy: CfnRegistryPolicyProps
     schema: CfnSchemaProps
+  mwaa:
+    environment: CfnEnvironmentProps
   sns:
     subscription: CfnSubscriptionProps
     topic: CfnTopicProps
@@ -115,6 +126,8 @@ compute:
     nat-gateway: CfnNatGatewayProps
     network-acl: CfnNetworkAclProps
     network-acl-entry: CfnNetworkAclEntryProps
+    network-insights-analysis: CfnNetworkInsightsAnalysisProps
+    network-insights-path: CfnNetworkInsightsPathProps
     network-interface: CfnNetworkInterfaceProps
     network-interface-attachment: CfnNetworkInterfaceAttachmentProps
     network-interface-permission: CfnNetworkInterfacePermissionProps
@@ -136,6 +149,11 @@ compute:
     traffic-mirror-target: CfnTrafficMirrorTargetProps
     transit-gateway: CfnTransitGatewayProps
     transit-gateway-attachment: CfnTransitGatewayAttachmentProps
+    transit-gateway-connect: CfnTransitGatewayConnectProps
+    transit-gateway-multicast-domain: CfnTransitGatewayMulticastDomainProps
+    transit-gateway-multicast-domain-association: CfnTransitGatewayMulticastDomainAssociationProps
+    transit-gateway-multicast-group-member: CfnTransitGatewayMulticastGroupMemberProps
+    transit-gateway-Multicast-group-source: CfnTransitGatewayMulticastGroupSourceProps
     transit-gateway-route: CfnTransitGatewayRouteProps
     transit-gateway-route-table: CfnTransitGatewayRouteTableProps
     transit-gateway-route-table-association: CfnTransitGatewayRouteTableAssociationProps
@@ -156,15 +174,20 @@ compute:
     vpn-gateway: CfnVPNGatewayProps
     vpn-gateway-route-propagation: CfnVPNGatewayRoutePropagationProps
   ecr:
+    public-repository: CfnPublicRepositoryProps
+    registry-policy: CfnRegistryPolicyProps
+    replication-configuration: CfnReplicationConfigurationProps
     repository: CfnRepositoryProps
   ecs:
     capacity-provider: CfnCapacityProviderProps
     cluster: CfnClusterProps
+    cluster-capacity-provider-associations: CfnClusterCapacityProviderAssociationsProps
     primary-task-set: CfnPrimaryTaskSetProps
     service: CfnServiceProps
     task-definition: CfnTaskDefinitionProps
     task-set: CfnTaskSetProps
   eks:
+    addon: CfnAddonProps
     cluster: CfnClusterProps
     fargate-profile: CfnFargateProfileProps
     nodegroup: CfnNodegroupProps
@@ -182,7 +205,8 @@ compute:
     load-balancer: CfnLoadBalancerProps
     target-group: CfnTargetGroupProps
   image-builder:
-    componentProps: CfnComponentProps
+    component: CfnComponentProps
+    container-recipe: CfnContainerRecipeProps
     distribution-configuration: CfnDistributionConfigurationProps
     image: CfnImageProps
     image-pipeline: CfnImagePipelineProps
@@ -217,6 +241,8 @@ cost-management:
   budgets: 
     budget: CfnBudgetProps
   ce:
+    anomaly-monitor: CfnAnomalyMonitorProps
+    anomaly-subscription: CfnAnomalySubscriptionProps
     cost-category: CfnCostCategoryProps
 customer-engagement:
   pinpoint:
@@ -267,11 +293,14 @@ db:
     table: CfnTableProps
   elasticache:
     cache-cluster: CfnCacheClusterProps
+    global-replication-group: CfnGlobalReplicationGroupProps
     parameter-group: CfnParameterGroupProps
     replication-group: CfnReplicationGroupProps
     security-group: CfnSecurityGroupProps
     security-group-ingress: CfnSecurityGroupIngressProps
     subnet-group: CfnSubnetGroupProps
+    user: CfnUserProps
+    user-group: CfnUserGroupProps
   neptune:
     db-cluster: CfnDBClusterProps
     db-cluster-parameter-group: CfnDBClusterParameterGroupProps
@@ -293,6 +322,7 @@ db:
     db-instance: CfnDBInstanceProps
     db-parameter-group: CfnDBParameterGroupProps
     db-proxy: CfnDBProxyProps
+    db-proxy-endpoint: CfnDBProxyEndpointProps
     db-proxy-target-group: CfnDBProxyTargetGroupProps
     db-security-group: CfnDBSecurityGroupProps
     db-security-group-ingress: CfnDBSecurityGroupIngressProps
@@ -331,6 +361,8 @@ developer-tools:
     connection: CfnConnectionProps
   codestar-notifications:
     notification-rule: CfnNotificationRuleProps
+  fis:
+    experiment-template: CfnExperimentTemplateProps
 end-user-computing:
   appstream:
     directory-config: CfnDirectoryConfigProps
@@ -371,13 +403,21 @@ iot:
     resource-definition-version: CfnResourceDefinitionVersionProps
     subscription-definition: CfnSubscriptionDefinitionProps
     subscription-definition-version: CfnSubscriptionDefinitionVersionProps
+  greengrass-v2:
+    component-version: CfnComponentVersionProps
   iot:
+    account-audit-configuration: CfnAccountAuditConfigurationProps
     authorizer: CfnAuthorizerProps
     certificate: CfnCertificateProps
+    custom-metric: CfnCustomMetricProps
+    dimension: CfnDimensionProps
     domain-configuration: CfnDomainConfigurationProps
+    mitigation-action: CfnMitigationActionProps
     policy: CfnPolicyProps
     policy-principal-attachment: CfnPolicyPrincipalAttachmentProps
     provisioning-template: CfnProvisioningTemplateProps
+    scheduled-audit: CfnScheduledAuditProps
+    security-profile: CfnSecurityProfileProps
     thing: CfnThingProps
     thing-principal-attachment: CfnThingPrincipalAttachmentProps
     topic-rule: CfnTopicRuleProps
@@ -395,11 +435,21 @@ iot:
     detector-model: CfnDetectorModelProps
     input: CfnInputProps
   iot-sitewise:
+    access-policy: CfnAccessPolicyProps
     asset: CfnAssetProps
     asset-model: CfnAssetModelProps
+    dashboard: CfnDashboardProps
     gateway: CfnGatewayProps
+    portal: CfnPortalProps
+    project: CfnProjectProps
   iot-things-graph:
     flow-template: CfnFlowTemplateProps
+  iot-wireless:
+    destination: CfnDestinationProps
+    device-profile: CfnDeviceProfileProps
+    service-profile: CfnServiceProfileProps
+    wireless-device: CfnWirelessDeviceProps
+    wireless-gateway: CfnWirelessGatewayProps
 management-governance:
   appconfig:
     application: CfnApplicationProps
@@ -426,6 +476,10 @@ management-governance:
   cloudformation:
     custom-resource: CfnCustomResourceProps
     macro: CfnMacroProps
+    module-default-version: CfnModuleDefaultVersionProps
+    module-version: CfnModuleVersionProps
+    resource-default-version: CfnResourceDefaultVersionProps
+    resource-version: CfnResourceVersionProps
     stack: CfnStackProps
     stack-set: CfnStackSetProps
     wait-condition: CfnWaitConditionProps
@@ -448,11 +502,17 @@ management-governance:
     organization-config-rule: CfnOrganizationConfigRuleProps
     organization-conformance-pack: CfnOrganizationConformancePackProps
     remediation-configuration: CfnRemediationConfigurationProps
+    stored-query: CfnStoredQueryProps
   events:
+    api-destination: CfnApiDestinationProps
     archive: CfnArchiveProps
+    connection: CfnConnectionProps
     event-bus: CfnEventBusProps
     event-bus-policy: CfnEventBusPolicyProps
     rule: CfnRuleProps
+  license-manager:
+    grant: CfnGrantProps
+    license: CfnLicenseProps
   logs:
     destination: CfnDestinationProps
     log-group: CfnLogGroupProps
@@ -483,9 +543,16 @@ management-governance:
     portfolio-product-association: CfnPortfolioProductAssociationProps
     portfolio-share: CfnPortfolioShareProps
     resource-update-constraint: CfnResourceUpdateConstraintProps
+    service-action: CfnServiceActionProps
+    service-action-association: CfnServiceActionAssociationProps
     stack-set-constraint: CfnStackSetConstraintProps
     tag-option: CfnTagOptionProps
     tag-option-association: CfnTagOptionAssociationProps
+  service-catalog-app-registry:
+    application: CfnApplicationProps
+    attribute-group: CfnAttributeGroupProps
+    attribute-group-association: CfnAttributeGroupAssociationProps
+    resource-association: CfnResourceAssociationProps
   ssm:
     association: CfnAssociationProps
     document: CfnDocumentProps
@@ -502,6 +569,12 @@ media-services:
     channel: CfnChannelProps
     playback-key-pair: CfnPlaybackKeyPairProps
     stream-key: CfnStreamKeyProps
+  media-connect:
+    flow: CfnFlowProps
+    flow-entitlement: CfnFlowEntitlementProps
+    flow-output: CfnFlowOutputProps
+    flow-source: CfnFlowSourceProps
+    flow-vpc-interface: CfnFlowVpcInterfaceProps
   media-convert:
     job-template: CfnJobTemplateProps
     preset: CfnPresetProps
@@ -519,6 +592,15 @@ media-services:
   media-store:
     container: CfnContainerProps
 migration-transfer:
+  datasync:
+    agent: CfnAgentProps
+    location-efs: CfnLocationEFSProps
+    location-fsx-windows: CfnLocationFSxWindowsProps
+    location-nfs: CfnLocationNFSProps
+    location-object-storage: CfnLocationObjectStorageProps
+    location-s3: CfnLocationS3Props
+    location-smb: CfnLocationSMBProps
+    task: CfnTaskProps
   dms:
     certificate: CfnCertificateProps
     endpoint: CfnEndpointProps
@@ -534,19 +616,40 @@ ml:
     profiling-group: CfnProfilingGroupProps
   codeguru-reviewer:
     repository-association: CfnRepositoryAssociationProps
+  devops-guru:
+    notification-channel: CfnNotificationChannelProps
+    resource-collection: CfnResourceCollectionProps
   kendra:
     data-source: CfnDataSourceProps
     faq: CfnFaqProps
     index: CfnIndexProps
+  lookout-vision:
+    project: CfnProjectProps
   sagemaker:
+    app: CfnAppProps
+    app-image-config: CfnAppImageConfigProps
     code-repository: CfnCodeRepositoryProps
+    data-quality-job-definition: CfnDataQualityJobDefinitionProps
+    device: CfnDeviceProps
+    device-fleet: CfnDeviceFleetProps
+    domain: CfnDomainProps
     endpoint: CfnEndpointProps
     endpoint-config: CfnEndpointConfigProps
+    feature-group: CfnFeatureGroupProps
+    image: CfnImageProps
+    image-version: CfnImageVersionProps
     model: CfnModelProps
+    model-bias-job-definition: CfnModelBiasJobDefinitionProps
+    model-explainability-job-definition: CfnModelExplainabilityJobDefinitionProps
+    model-package-group: CfnModelPackageGroupProps
+    model-quality-job-definition: CfnModelQualityJobDefinitionProps
     monitoring-schedule: CfnMonitoringScheduleProps
     notebook-instance: CfnNotebookInstanceProps
     notebook-instance-lifecycle-config: CfnNotebookInstanceLifecycleConfigProps
-    workteam-props: CfnWorkteamProps
+    pipeline: CfnPipelineProps
+    project: CfnProjectProps
+    user-profile: CfnUserProfileProps
+    workteam: CfnWorkteamProps
 mobile:
   amplify:
     app: CfnAppProps
@@ -617,11 +720,14 @@ networking-content-delivery:
     endpoint-group: CfnEndpointGroupProps
     listener: CfnListenerProps
   route-53:
+    dnssec: CfnDNSSECProps
     health-check: CfnHealthCheckProps
     hosted-zone: CfnHostedZoneProps
+    key-signing-key: CfnKeySigningKeyProps
     record-set: CfnRecordSetProps
     record-set-group: CfnRecordSetGroupProps
   route-53-resolver:
+    resolver-dnssec-config: CfnResolverDNSSECConfigProps
     resolver-endpoint: CfnResolverEndpointProps
     resolver-query-logging-config-association: CfnResolverQueryLoggingConfigAssociationProps
     resolver-query-logging-config: CfnResolverQueryLoggingConfigProps
@@ -648,7 +754,10 @@ security-identity-compliance:
     certificate: CfnCertificateProps
     certificate-authority: CfnCertificateAuthorityProps
     certificate-authority-activation: CfnCertificateAuthorityActivationProps
-  certificate-manager: 
+  audit-manager:
+    assessment: CfnAssessmentProps
+  certificate-manager:
+    account: CfnAccountProps
     certificate: CfnCertificateProps
   cognito:
     identity-pool: CfnIdentityPoolProps
@@ -683,11 +792,15 @@ security-identity-compliance:
     group: CfnGroupProps
     instance-profile: CfnInstanceProfileProps
     managed-policy: CfnManagedPolicyProps
+    oidc-provider: CfnOIDCProviderProps
     policy: CfnPolicyProps
     role: CfnRoleProps
+    saml-provider: CfnSAMLProviderProps
+    server-certificate: CfnServerCertificateProps
     service-linked-role: CfnServiceLinkedRoleProps
     user: CfnUserProps
     user-to-group-addition: CfnUserToGroupAdditionProps
+    virtual-mfa-device: CfnVirtualMFADeviceProps
   inspector:
     assessment-target: CfnAssessmentTargetProps
     assessment-template: CfnAssessmentTemplateProps
@@ -718,6 +831,7 @@ security-identity-compliance:
     signing-profile: CfnSigningProfileProps
   sso:
     assignment: CfnAssignmentProps
+    instance-access-control-attribute-configuration: CfnInstanceAccessControlAttributeConfigurationProps
     permission-set: CfnPermissionSetProps
   waf:
     byte-match-set: CfnByteMatchSetProps
@@ -727,7 +841,7 @@ security-identity-compliance:
     sql-injection-match-set: CfnSqlInjectionMatchSetProps
     web-acl: CfnWebACLProps
     xss-match-set: CfnXssMatchSetProps
-  wafv2:
+  waf-v2:
     ip-set: CfnIPSetProps
     regex-pattern-set: CfnRegexPatternSetProps
     rule-group: CfnRuleGroupProps
@@ -761,3 +875,11 @@ storage:
     bucket: CfnBucketProps
     bucket-policy: CfnBucketPolicyProps
     storage-lens: CfnStorageLensProps
+  s3-object-lambda:
+    access-point: CfnAccessPointProps
+    access-point-policy: CfnAccessPointPolicyProps
+  s3-outposts:
+    access-point: CfnAccessPointProps
+    bucket: CfnBucketProps
+    bucket-policy: CfnBucketPolicyProps
+    endpoint: CfnEndpointProps

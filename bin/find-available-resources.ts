@@ -41,7 +41,7 @@ async function initCommandLine() {
   return await findAvailableResources();
 
   async function findAvailableResources(): Promise<void> {
-    const resources = yaml.safeLoad(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'));
+    const resources = yaml.load(await fs.readFile(__dirname + '/../lib/resources.yaml', 'utf-8'));
     const propsPaths = [];
     for (const category of Object.keys(resources)) {
       for (const service of Object.keys(resources[category])) {

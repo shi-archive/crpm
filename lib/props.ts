@@ -8,7 +8,7 @@ export async function parseGeneratedCdkFile(serviceName: string): Promise<object
   const cdkPropsKey = 'cdk';
   props[cdkPropsKey] = await parse(__dirname + '/../node_modules/@aws-cdk/core/lib/cfn-tag.d.ts');
 
-  const serviceOverrides = yaml.safeLoad(await fs.readFile(__dirname + '/service-overrides.yaml', 'utf-8'));
+  const serviceOverrides = yaml.load(await fs.readFile(__dirname + '/service-overrides.yaml', 'utf-8'));
   const moduleName =
     '@aws-cdk/aws-' + (serviceOverrides && serviceOverrides.hasOwnProperty(serviceName) ? serviceOverrides[serviceName] : serviceName);
   props = await parse(__dirname + '/../node_modules/' + moduleName + '/lib/' + serviceName + '.generated.d.ts');
@@ -19,7 +19,7 @@ export async function parseGeneratedCdkFile(serviceName: string): Promise<object
 
     let defaults: any = {};
     if (await fs.pathExists(__dirname + '/defaults/' + serviceName + '.yaml')) {
-      defaults = yaml.safeLoad(await fs.readFile(__dirname + '/defaults/' + serviceName + '.yaml', 'utf-8'), {
+      defaults = yaml.load(await fs.readFile(__dirname + '/defaults/' + serviceName + '.yaml', 'utf-8'), {
         schema: yaml.JSON_SCHEMA
       });
     }
@@ -195,7 +195,7 @@ export async function outputYaml(props: any, parentComment?: string, indentation
 
 export function load<T>(filename: string): Writeable<T> {
   try {
-    const props = yaml.safeLoad(fs.readFileSync(filename, 'utf8'), {
+    const props = yaml.load(fs.readFileSync(filename, 'utf8'), {
       schema: yaml.JSON_SCHEMA
     });
     if (props) {
