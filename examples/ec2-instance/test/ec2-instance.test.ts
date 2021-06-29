@@ -1,11 +1,9 @@
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
-import * as Ec2Instance from '../lib/ec2-instance-stack';
+import { Ec2InstanceStack } from '../lib/ec2-instance-stack';
 
-test('Empty Stack', () => {
+test('Stack', () => {
     const app = new cdk.App();
-    // WHEN
-    const stack = new Ec2Instance.Ec2InstanceStack(app, 'MyTestStack');
-    // THEN
-    expectCDK(stack).to(haveResource('AWS::EC2::Instance'));
+    const stack = new Ec2InstanceStack(app, 'Ec2InstanceStack');
+    expectCDK(stack).to(haveResource('AWS::IAM::Role'));
 });
