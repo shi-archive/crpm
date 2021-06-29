@@ -23,6 +23,8 @@ analytics:
     studio-session-mapping: CfnStudioSessionMappingProps
   emrcontainers:
     virtual-cluster: CfnVirtualClusterProps
+  finspace:
+    environment: CfnEnvironmentProps
   glue:
     classifier: CfnClassifierProps
     connection: CfnConnectionProps
@@ -64,6 +66,8 @@ analytics:
   quicksight:
     analysis: CfnAnalysisProps
     dashboard: CfnDashboardProps
+    data-set: CfnDataSetProps
+    data-source: CfnDataSourceProps
     template: CfnTemplateProps
     theme: CfnThemeProps
 application-integration:
@@ -71,6 +75,8 @@ application-integration:
     broker: CfnBrokerProps
     configuration: CfnConfigurationProps
     configuration-association: CfnConfigurationAssociationProps
+  app-integrations:
+    event-integration: CfnEventIntegrationProps
   appflow:
     connector-profile: CfnConnectorProfileProps
     flow: CfnFlowProps
@@ -96,6 +102,8 @@ blockchain:
     member: CfnMemberProps
     node: CfnNodeProps
 compute:
+  app-runner:
+    service: CfnServiceProps
   batch: 
     compute-environment: CfnComputeEnvironmentProps
     job-definition: CfnJobDefinitionProps
@@ -115,6 +123,7 @@ compute:
     egress-only-internet-gateway: CfnEgressOnlyInternetGatewayProps
     eip: CfnEIPProps
     eip-association: CfnEIPAssociationProps
+    enclave-certificate-iam-role-association: CfnEnclaveCertificateIamRoleAssociationProps
     flow-log: CfnFlowLogProps
     gateway-route-table-association: CfnGatewayRouteTableAssociationProps
     host: CfnHostProps
@@ -153,7 +162,8 @@ compute:
     transit-gateway-multicast-domain: CfnTransitGatewayMulticastDomainProps
     transit-gateway-multicast-domain-association: CfnTransitGatewayMulticastDomainAssociationProps
     transit-gateway-multicast-group-member: CfnTransitGatewayMulticastGroupMemberProps
-    transit-gateway-Multicast-group-source: CfnTransitGatewayMulticastGroupSourceProps
+    transit-gateway-multicast-group-source: CfnTransitGatewayMulticastGroupSourceProps
+    transit-gateway-peering-attachment: CfnTransitGatewayPeeringAttachmentProps
     transit-gateway-route: CfnTransitGatewayRouteProps
     transit-gateway-route-table: CfnTransitGatewayRouteTableProps
     transit-gateway-route-table-association: CfnTransitGatewayRouteTableAssociationProps
@@ -238,13 +248,20 @@ compute:
     simple-table: CfnSimpleTableProps
     state-machine: CfnStateMachineProps
 cost-management:
-  budgets: 
+  budgets:
     budget: CfnBudgetProps
+    budgets-action: CfnBudgetsActionProps
   ce:
     anomaly-monitor: CfnAnomalyMonitorProps
     anomaly-subscription: CfnAnomalySubscriptionProps
     cost-category: CfnCostCategoryProps
-customer-engagement:
+  cur:
+    report-definition: CfnReportDefinitionProps
+business-applications:
+  customer-profiles:
+    domain: CfnDomainProps
+    integration: CfnIntegrationProps
+    object-type: CfnObjectTypeProps
   pinpoint:
     adm-channel: CfnADMChannelProps
     apns-channel: CfnAPNSChannelProps
@@ -272,6 +289,7 @@ customer-engagement:
   ses:
     configuration-set: CfnConfigurationSetProps
     configuration-set-event-destination: CfnConfigurationSetEventDestinationProps
+    contact-list: CfnContactListProps
     receipt-filter: CfnReceiptFilterProps
     receipt-rule: CfnReceiptRuleProps
     receipt-rule-set: CfnReceiptRuleSetProps
@@ -290,6 +308,7 @@ db:
     db-instance: CfnDBInstanceProps
     db-subnet-group: CfnDBSubnetGroupProps
   dynamodb:
+    global-table: CfnGlobalTableProps
     table: CfnTableProps
   elasticache:
     cache-cluster: CfnCacheClusterProps
@@ -363,6 +382,9 @@ developer-tools:
     notification-rule: CfnNotificationRuleProps
   fis:
     experiment-template: CfnExperimentTemplateProps
+  x-ray:
+    group: CfnGroupProps
+    sampling-rule: CfnSamplingRuleProps
 end-user-computing:
   appstream:
     directory-config: CfnDirectoryConfigProps
@@ -431,9 +453,13 @@ iot:
     dataset: CfnDatasetProps
     datastore: CfnDatastoreProps
     pipeline: CfnPipelineProps
+  iot-core-device-advisor:
+    suite-definition: CfnSuiteDefinitionProps
   iot-events:
     detector-model: CfnDetectorModelProps
     input: CfnInputProps
+  iot-fleet-hub:
+    application: CfnApplicationProps
   iot-sitewise:
     access-policy: CfnAccessPolicyProps
     asset: CfnAssetProps
@@ -447,7 +473,9 @@ iot:
   iot-wireless:
     destination: CfnDestinationProps
     device-profile: CfnDeviceProfileProps
+    partner-account: CfnPartnerAccountProps
     service-profile: CfnServiceProfileProps
+    task-definition: CfnTaskDefinitionProps
     wireless-device: CfnWirelessDeviceProps
     wireless-gateway: CfnWirelessGatewayProps
 management-governance:
@@ -469,6 +497,7 @@ management-governance:
     lifecycle-hook: CfnLifecycleHookProps
     scaling-policy: CfnScalingPolicyProps
     scheduled-action: CfnScheduledActionProps
+    warm-pool: CfnWarmPoolProps
   auto-scaling-plans:
     scaling-plan: CfnScalingPlanProps
   chatbot:
@@ -518,6 +547,7 @@ management-governance:
     log-group: CfnLogGroupProps
     log-stream: CfnLogStreamProps
     metric-filter: CfnMetricFilterProps
+    query-definition: CfnQueryDefinitionProps
     subscription-filter: CfnSubscriptionFilterProps
   opsworks:
     app: CfnAppProps
@@ -562,12 +592,19 @@ management-governance:
     parameter: CfnParameterProps
     patch-baseline: CfnPatchBaselineProps
     resource-data-sync: CfnResourceDataSyncProps
+  ssmcontacts:
+    contact: CfnContactProps
+    contact-channel: CfnContactChannelProps
+  ssmincidents:
+    replication-set: CfnReplicationSetProps
+    response-plan: CfnResponsePlanProps
   synthetics:
     canary: CfnCanaryProps
 media-services:
   ivs:
     channel: CfnChannelProps
     playback-key-pair: CfnPlaybackKeyPairProps
+    recording-configuration: CfnRecordingConfigurationProps
     stream-key: CfnStreamKeyProps
   media-connect:
     flow: CfnFlowProps
@@ -591,6 +628,11 @@ media-services:
     packaging-group: CfnPackagingGroupProps
   media-store:
     container: CfnContainerProps
+  nimble-studio:
+    launch-profile: CfnLaunchProfileProps
+    streaming-image: CfnStreamingImageProps
+    studio: CfnStudioProps
+    studio-component: CfnStudioComponentProps
 migration-transfer:
   datasync:
     agent: CfnAgentProps
@@ -619,10 +661,20 @@ ml:
   devops-guru:
     notification-channel: CfnNotificationChannelProps
     resource-collection: CfnResourceCollectionProps
+  fraud-detector:
+    detector: CfnDetectorProps
+    entity-type: CfnEntityTypeProps
+    event-type: CfnEventTypeProps
+    label: CfnLabelProps
+    outcome: CfnOutcomeProps
+    variable: CfnVariableProps
   kendra:
     data-source: CfnDataSourceProps
     faq: CfnFaqProps
     index: CfnIndexProps
+  lookout-metrics:
+    alert: CfnAlertProps
+    anomaly-detector: CfnAnomalyDetectorProps
   lookout-vision:
     project: CfnProjectProps
   sagemaker:
@@ -651,6 +703,13 @@ ml:
     user-profile: CfnUserProfileProps
     workteam: CfnWorkteamProps
 mobile:
+  location:
+    geofence-collection: CfnGeofenceCollectionProps
+    map: CfnMapProps
+    place-index: CfnPlaceIndexProps
+    route-calculator: CfnRouteCalculatorProps
+    tracker: CfnTrackerProps
+    tracker-consumer: CfnTrackerConsumerProps
   amplify:
     app: CfnAppProps
     branch: CfnBranchProps
@@ -710,6 +769,7 @@ networking-content-delivery:
     cache-policy: CfnCachePolicyProps
     cloudfront-origin-access-identity: CfnCloudFrontOriginAccessIdentityProps
     distribution: CfnDistributionProps
+    function: CfnFunctionProps
     key-group: CfnKeyGroupProps
     origin-request-policy: CfnOriginRequestPolicyProps
     public-key: CfnPublicKeyProps
@@ -727,6 +787,9 @@ networking-content-delivery:
     record-set: CfnRecordSetProps
     record-set-group: CfnRecordSetGroupProps
   route-53-resolver:
+    firewall-domain-list: CfnFirewallDomainListProps
+    firewall-rule-group: CfnFirewallRuleGroupProps
+    firewall-rule-group-association: CfnFirewallRuleGroupAssociationProps
     resolver-dnssec-config: CfnResolverDNSSECConfigProps
     resolver-endpoint: CfnResolverEndpointProps
     resolver-query-logging-config-association: CfnResolverQueryLoggingConfigAssociationProps
@@ -747,6 +810,11 @@ robotics:
     robot-application-version: CfnRobotApplicationVersionProps
     simulation-application: CfnSimulationApplicationProps
     simulation-application-version: CfnSimulationApplicationVersionProps
+satellite:
+  ground-station:
+    config: CfnConfigProps
+    dataflow-endpoint-group: CfnDataflowEndpointGroupProps
+    mission-profile: CfnMissionProfileProps
 security-identity-compliance:
   access-analyzer:
     analyzer: CfnAnalyzerProps
@@ -774,6 +842,7 @@ security-identity-compliance:
     user-pool-user-to-group-attachment: CfnUserPoolUserToGroupAttachmentProps
   detective:
     member-invitation: CfnMemberInvitationProps
+    graph: CfnGraphProps
   directory-service:
     microsoft-ad: CfnMicrosoftADProps
     simple-ad: CfnSimpleADProps
